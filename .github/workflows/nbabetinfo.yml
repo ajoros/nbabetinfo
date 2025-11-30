@@ -41,10 +41,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git status --porcelain | grep .; then
-            git add docs/nbabetinfo/index.html
-            git commit -m "Update nbabetinfo page"
-            git push
-          else
+          git add docs/nbabetinfo/index.html || true
+          # If nothing is staged, exit successfully without committing
+          if git diff --cached --quiet; then
             echo "No changes to commit."
+            exit 0
           fi
+          git commit -m "Update nbabetinfo page"
+          git push
