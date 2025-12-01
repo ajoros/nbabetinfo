@@ -332,8 +332,8 @@ def main() -> None:
 
     load_metrics_for_games(games, repo_root)
 
-    # By default write to docs/nbabetinfo/index.html for local preview
-    output_path = repo_root / "docs" / "nbabetinfo" / "index.html"
+    # Write to index.html at repo root so GitHub Pages (root) serves it
+    output_path = repo_root / "index.html"
     render_html(games, output_path)
 
 
