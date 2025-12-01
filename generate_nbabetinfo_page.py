@@ -189,16 +189,15 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
 
         def metric_vals(team: TeamInfo):
             if not team.metrics:
-                return None, None, None, None
+                return None, None, None
             m = team.metrics
-            spi = f"{m['SPI']:+.2f}"
             avi = f"{m['AVI']:+.2f}"
             cri = f"{m['CRI']*100:.1f}%"
             tpi = f"{m['TPI']:+.2f}"
-            return spi, avi, cri, tpi
+            return avi, cri, tpi
 
-        away_spi, away_avi, away_cri, away_tpi = metric_vals(g.away)
-        home_spi, home_avi, home_cri, home_tpi = metric_vals(g.home)
+        away_avi, away_cri, away_tpi = metric_vals(g.away)
+        home_avi, home_cri, home_tpi = metric_vals(g.home)
 
         def td_metric(val: Optional[str]) -> str:
             if val is None:
@@ -208,12 +207,10 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
         row = [
             f"<td class='time'>{time_str}</td>",
             f"<td class='team-name'>{g.away.label}</td>",
-            td_metric(away_spi),
             td_metric(away_avi),
             td_metric(away_cri),
             td_metric(away_tpi),
             f"<td class='team-name'>{g.home.label}</td>",
-            td_metric(home_spi),
             td_metric(home_avi),
             td_metric(home_cri),
             td_metric(home_tpi),
@@ -319,17 +316,15 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
       <thead>
         <tr>
           <th rowspan="2">Time (PT)</th>
-          <th colspan="5">Away</th>
-          <th colspan="5">Home</th>
+          <th colspan="4">Away</th>
+          <th colspan="4">Home</th>
         </tr>
         <tr>
           <th>Team</th>
-          <th>SPI</th>
           <th>AVI</th>
           <th>CRI</th>
           <th>TPI</th>
           <th>Team</th>
-          <th>SPI</th>
           <th>AVI</th>
           <th>CRI</th>
           <th>TPI</th>
