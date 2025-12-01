@@ -187,24 +187,39 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
     for g in sorted(games, key=lambda x: x.start_time_pt):
         time_str = format_time_pt(g.start_time_pt)
 
-        def fmt_metrics(team: TeamInfo) -> str:
+        def metric_vals(team: TeamInfo):
             if not team.metrics:
-                return "<em>No data available</em>"
+                return None, None, None, None
             m = team.metrics
-            return (
-                f"SPI: {m['SPI']:+.2f}, "
-                f"AVI: {m['AVI']:+.2f}, "
-                f"CRI: {m['CRI']*100:.1f}%, "
-                f"TPI: {m['TPI']:+.2f}"
-            )
+            spi = f"{m['SPI']:+.2f}"
+            avi = f"{m['AVI']:+.2f}"
+            cri = f"{m['CRI']*100:.1f}%"
+            tpi = f"{m['TPI']:+.2f}"
+            return spi, avi, cri, tpi
 
-        rows_html.append(
-            f"<tr>"
-            f"<td class='time'>{time_str}</td>"
-            f"<td class='team'><div class='name'>{g.away.label}</div><div class='metrics'>{fmt_metrics(g.away)}</div></td>"
-            f"<td class='team'><div class='name'>{g.home.label}</div><div class='metrics'>{fmt_metrics(g.home)}</div></td>"
-            f"</tr>"
-        )
+        away_spi, away_avi, away_cri, away_tpi = metric_vals(g.away)
+        home_spi, home_avi, home_cri, home_tpi = metric_vals(g.home)
+
+        def td_metric(val: Optional[str]) -> str:
+            if val is None:
+                return "<td class='metric na'>—</td>"
+            return f"<td class='metric'>{val}</td>"
+
+        row = [
+            f"<td class='time'>{time_str}</td>",
+            f"<td class='team-name'>{g.away.label}</td>",
+            td_metric(away_spi),
+            td_metric(away_avi),
+            td_metric(away_cri),
+            td_metric(away_tpi),
+            f"<td class='team-name'>{g.home.label}</td>",
+            td_metric(home_spi),
+            td_metric(home_avi),
+            td_metric(home_cri),
+            td_metric(home_tpi),
+        ]
+
+        rows_html.append("<tr>" + "".join(row) + "</tr>")
 
     rows_block = "\n".join(rows_html) if rows_html else "<tr><td colspan='3'>No games found for today.</td></tr>"
 
@@ -251,9 +266,10 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
         overflow: hidden;
       }}
       th, td {{
-        padding: 0.5rem 0.75rem;
+        padding: 0.4rem 0.5rem;
         border-bottom: 1px solid #252b45;
         vertical-align: top;
+        font-size: 0.85rem;
       }}
       th {{
         text-align: left;
@@ -267,13 +283,16 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
         white-space: nowrap;
         font-weight: 600;
       }}
-      td.team .name {{
+      td.team-name {{
         font-weight: 600;
-        margin-bottom: 0.15rem;
+        white-space: nowrap;
       }}
-      td.team .metrics {{
-        font-size: 0.85rem;
-        color: #c0c6ff;
+      td.metric {{
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }}
+      td.metric.na {{
+        color: #555b80;
       }}
       .legend {{
         font-size: 0.85rem;
@@ -299,9 +318,21 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
     <table>
       <thead>
         <tr>
-          <th style="width: 10%">Time (PT)</th>
-          <th style="width: 45%">Away Team / Metrics</th>
-          <th style="width: 45%">Home Team / Metrics</th>
+          <th rowspan="2">Time (PT)</th>
+          <th colspan="5">Away</th>
+          <th colspan="5">Home</th>
+        </tr>
+        <tr>
+          <th>Team</th>
+          <th>SPI</th>
+          <th>AVI</th>
+          <th>CRI</th>
+          <th>TPI</th>
+          <th>Team</th>
+          <th>SPI</th>
+          <th>AVI</th>
+          <th>CRI</th>
+          <th>TPI</th>
         </tr>
       </thead>
       <tbody>

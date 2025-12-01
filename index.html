@@ -28,9 +28,10 @@
         overflow: hidden;
       }
       th, td {
-        padding: 0.5rem 0.75rem;
+        padding: 0.4rem 0.5rem;
         border-bottom: 1px solid #252b45;
         vertical-align: top;
+        font-size: 0.85rem;
       }
       th {
         text-align: left;
@@ -44,13 +45,16 @@
         white-space: nowrap;
         font-weight: 600;
       }
-      td.team .name {
+      td.team-name {
         font-weight: 600;
-        margin-bottom: 0.15rem;
+        white-space: nowrap;
       }
-      td.team .metrics {
-        font-size: 0.85rem;
-        color: #c0c6ff;
+      td.metric {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+      td.metric.na {
+        color: #555b80;
       }
       .legend {
         font-size: 0.85rem;
@@ -76,20 +80,32 @@
     <table>
       <thead>
         <tr>
-          <th style="width: 10%">Time (PT)</th>
-          <th style="width: 45%">Away Team / Metrics</th>
-          <th style="width: 45%">Home Team / Metrics</th>
+          <th rowspan="2">Time (PT)</th>
+          <th colspan="5">Away</th>
+          <th colspan="5">Home</th>
+        </tr>
+        <tr>
+          <th>Team</th>
+          <th>SPI</th>
+          <th>AVI</th>
+          <th>CRI</th>
+          <th>TPI</th>
+          <th>Team</th>
+          <th>SPI</th>
+          <th>AVI</th>
+          <th>CRI</th>
+          <th>TPI</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td class='time'>12:00 PM PT</td><td class='team'><div class='name'>Houston Rockets</div><div class='metrics'>SPI: +5.56, AVI: -5.56, CRI: 70.6%, TPI: +2.00</div></td><td class='team'><div class='name'>Utah Jazz</div><div class='metrics'>SPI: -0.92, AVI: +0.92, CRI: 52.6%, TPI: +7.29</div></td></tr>
-<tr><td class='time'>3:00 PM PT</td><td class='team'><div class='name'>Atlanta Hawks</div><div class='metrics'>SPI: +1.60, AVI: -1.60, CRI: 50.0%, TPI: +0.38</div></td><td class='team'><div class='name'>Philadelphia 76ers</div><div class='metrics'>SPI: +0.06, AVI: -0.06, CRI: 61.1%, TPI: +2.75</div></td></tr>
-<tr><td class='time'>3:00 PM PT</td><td class='team'><div class='name'>Toronto Raptors</div><div class='metrics'>SPI: +3.55, AVI: -3.55, CRI: 50.0%, TPI: -3.75</div></td><td class='team'><div class='name'>New York Knicks</div><div class='metrics'>SPI: +0.89, AVI: -0.89, CRI: 61.1%, TPI: +1.81</div></td></tr>
-<tr><td class='time'>3:00 PM PT</td><td class='team'><div class='name'>Oklahoma City Thunder</div><div class='metrics'>SPI: +4.20, AVI: -4.20, CRI: 50.0%, TPI: -0.65</div></td><td class='team'><div class='name'>Portland Trail Blazers</div><div class='metrics'>SPI: -1.11, AVI: +1.11, CRI: 47.4%, TPI: +5.79</div></td></tr>
-<tr><td class='time'>3:00 PM PT</td><td class='team'><div class='name'>Boston Celtics</div><div class='metrics'>SPI: +1.39, AVI: -1.39, CRI: 47.4%, TPI: -2.82</div></td><td class='team'><div class='name'>Cleveland Cavaliers</div><div class='metrics'>SPI: -2.62, AVI: +2.62, CRI: 30.0%, TPI: -1.12</div></td></tr>
-<tr><td class='time'>4:00 PM PT</td><td class='team'><div class='name'>San Antonio Spurs</div><div class='metrics'>SPI: +3.69, AVI: -3.69, CRI: 50.0%, TPI: +0.36</div></td><td class='team'><div class='name'>Minnesota Timberwolves</div><div class='metrics'>SPI: -0.95, AVI: +0.95, CRI: 36.8%, TPI: +1.50</div></td></tr>
-<tr><td class='time'>6:00 PM PT</td><td class='team'><div class='name'>Memphis Grizzlies</div><div class='metrics'>SPI: -0.55, AVI: +0.55, CRI: 40.0%, TPI: -4.47</div></td><td class='team'><div class='name'>Sacramento Kings</div><div class='metrics'>SPI: -5.25, AVI: +5.25, CRI: 35.0%, TPI: +0.35</div></td></tr>
-<tr><td class='time'>6:30 PM PT</td><td class='team'><div class='name'>New Orleans Pelicans</div><div class='metrics'>SPI: -2.75, AVI: +2.75, CRI: 50.0%, TPI: +1.40</div></td><td class='team'><div class='name'>Los Angeles Lakers</div><div class='metrics'><em>No data available</em></div></td></tr>
+        <tr><td class='time'>12:00 PM PT</td><td class='team-name'>Houston Rockets</td><td class='metric'>+5.56</td><td class='metric'>-5.56</td><td class='metric'>70.6%</td><td class='metric'>+2.00</td><td class='team-name'>Utah Jazz</td><td class='metric'>-0.92</td><td class='metric'>+0.92</td><td class='metric'>52.6%</td><td class='metric'>+7.29</td></tr>
+<tr><td class='time'>3:00 PM PT</td><td class='team-name'>Atlanta Hawks</td><td class='metric'>+1.60</td><td class='metric'>-1.60</td><td class='metric'>50.0%</td><td class='metric'>+0.38</td><td class='team-name'>Philadelphia 76ers</td><td class='metric'>+0.06</td><td class='metric'>-0.06</td><td class='metric'>61.1%</td><td class='metric'>+2.75</td></tr>
+<tr><td class='time'>3:00 PM PT</td><td class='team-name'>Toronto Raptors</td><td class='metric'>+3.55</td><td class='metric'>-3.55</td><td class='metric'>50.0%</td><td class='metric'>-3.75</td><td class='team-name'>New York Knicks</td><td class='metric'>+0.89</td><td class='metric'>-0.89</td><td class='metric'>61.1%</td><td class='metric'>+1.81</td></tr>
+<tr><td class='time'>3:00 PM PT</td><td class='team-name'>Oklahoma City Thunder</td><td class='metric'>+4.20</td><td class='metric'>-4.20</td><td class='metric'>50.0%</td><td class='metric'>-0.65</td><td class='team-name'>Portland Trail Blazers</td><td class='metric'>-1.11</td><td class='metric'>+1.11</td><td class='metric'>47.4%</td><td class='metric'>+5.79</td></tr>
+<tr><td class='time'>3:00 PM PT</td><td class='team-name'>Boston Celtics</td><td class='metric'>+1.39</td><td class='metric'>-1.39</td><td class='metric'>47.4%</td><td class='metric'>-2.82</td><td class='team-name'>Cleveland Cavaliers</td><td class='metric'>-2.62</td><td class='metric'>+2.62</td><td class='metric'>30.0%</td><td class='metric'>-1.12</td></tr>
+<tr><td class='time'>4:00 PM PT</td><td class='team-name'>San Antonio Spurs</td><td class='metric'>+3.69</td><td class='metric'>-3.69</td><td class='metric'>50.0%</td><td class='metric'>+0.36</td><td class='team-name'>Minnesota Timberwolves</td><td class='metric'>-0.95</td><td class='metric'>+0.95</td><td class='metric'>36.8%</td><td class='metric'>+1.50</td></tr>
+<tr><td class='time'>6:00 PM PT</td><td class='team-name'>Memphis Grizzlies</td><td class='metric'>-0.55</td><td class='metric'>+0.55</td><td class='metric'>40.0%</td><td class='metric'>-4.47</td><td class='team-name'>Sacramento Kings</td><td class='metric'>-5.25</td><td class='metric'>+5.25</td><td class='metric'>35.0%</td><td class='metric'>+0.35</td></tr>
+<tr><td class='time'>6:30 PM PT</td><td class='team-name'>New Orleans Pelicans</td><td class='metric'>-2.75</td><td class='metric'>+2.75</td><td class='metric'>50.0%</td><td class='metric'>+1.40</td><td class='team-name'>Los Angeles Lakers</td><td class='metric na'>—</td><td class='metric na'>—</td><td class='metric na'>—</td><td class='metric na'>—</td></tr>
       </tbody>
     </table>
 
