@@ -2,8 +2,9 @@ name: NBA Betting Info Page
 
 on:
   schedule:
-    # 14:00 UTC ≈ 6:00 AM Pacific during standard time
-    - cron: '0 14 * * *'
+    # Run at midnight PT (8:00 UTC) and every 6 hours thereafter (14:00, 20:00, 2:00 UTC)
+    # Midnight PT = 8:00 UTC during PST, 7:00 UTC during PDT
+    - cron: '0 8,14,20,2 * * *'
   workflow_dispatch:
 
 permissions:
@@ -35,17 +36,17 @@ jobs:
         run: |
           python generate_nbabetinfo_page.py
 
-      - name: Commit and push updated page
+      - name: Commit and push updated page and plots
         env:
           GITHUB_TOKEN: ${{ secrets.NBABETINFO_PAGES_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html || true
+          git add index.html plots/ ats_results_*.csv || true
           # If nothing is staged, exit successfully without committing
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
-          git commit -m "Update nbabetinfo page"
+          git commit -m "Update nbabetinfo page with ATS plots [$(date -u +'%Y-%m-%d %H:%M UTC')]"
           git push

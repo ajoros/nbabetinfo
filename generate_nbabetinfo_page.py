@@ -19,7 +19,8 @@ import requests
 
 from zoneinfo import ZoneInfo  # Python 3.9+
 
-from calculate_metrics import calculate_team_metrics
+from calculate_ats_metrics import calculate_team_ats_metrics
+from generate_ats_plots import generate_plots_for_teams
 
 # Mapping from NBA API "city name" + "team name" to TeamRankings team slug
 TEAM_NAME_TO_SLUG: Dict[str, str] = {
@@ -36,7 +37,7 @@ TEAM_NAME_TO_SLUG: Dict[str, str] = {
     "Houston Rockets": "houston-rockets",
     "Indiana Pacers": "indiana-pacers",
     "Los Angeles Clippers": "los-angeles-clippers",
-    "Los Angeles Lakers": "la-lakers",
+    "Los Angeles Lakers": "los-angeles-lakers",
     "Memphis Grizzlies": "memphis-grizzlies",
     "Miami Heat": "miami-heat",
     "Milwaukee Bucks": "milwaukee-bucks",
@@ -132,20 +133,20 @@ def fetch_todays_games() -> List[GameInfo]:
 
 
 def ensure_team_csv(slug: str, repo_root: Path) -> Path:
-    """Ensure we have an up-to-date CSV for the given TeamRankings slug.
+    """Ensure we have an up-to-date ATS results CSV for the given TeamRankings slug.
 
     This will call the local scraper script to refresh data for that team.
     """
-    csv_path = repo_root / f"teamrankings_{slug}.csv"
+    csv_path = repo_root / f"ats_results_{slug}.csv"
 
-    scraper_path = repo_root / "scrape_teamrankings_nba.py"
+    scraper_path = repo_root / "scrape_ats_results.py"
     if not scraper_path.exists():
         print(f"WARNING: scraper script not found at {scraper_path}; cannot refresh {slug}.", file=sys.stderr)
         return csv_path
 
     cmd = [sys.executable, str(scraper_path), "--team-slug", slug, "--output", str(csv_path)]
     try:
-        print(f"Refreshing TeamRankings data for {slug}...", file=sys.stderr)
+        print(f"Refreshing ATS results data for {slug}...", file=sys.stderr)
         subprocess.run(cmd, check=True)
     except subprocess.CalledProcessError as e:
         print(f"ERROR: Failed to scrape data for {slug}: {e}", file=sys.stderr)
@@ -156,7 +157,7 @@ def ensure_team_csv(slug: str, repo_root: Path) -> Path:
 def load_metrics_for_games(games: List[GameInfo], repo_root: Path) -> None:
     """Populate metrics for each team in the given list of games.
 
-    This reuses calculate_team_metrics from calculate_metrics.py and
+    This reuses calculate_team_ats_metrics from calculate_ats_metrics.py and
     auto-refreshes each needed team via the scraper.
     """
     seen: Dict[str, Optional[Dict]] = {}
@@ -170,7 +171,7 @@ def load_metrics_for_games(games: List[GameInfo], repo_root: Path) -> None:
                 continue
 
             csv_path = ensure_team_csv(team.slug, repo_root)
-            metrics = calculate_team_metrics(str(csv_path))
+            metrics = calculate_team_ats_metrics(str(csv_path))
             team.metrics = metrics
             seen[team.slug] = metrics
 
@@ -179,7 +180,7 @@ def format_time_pt(dt: datetime) -> str:
     return dt.strftime("%I:%M %p").lstrip("0") + " PT"
 
 
-def render_html(games: List[GameInfo], output_path: Path) -> None:
+def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> None:
     """Render a simple static HTML page for nbabetinfo."""
     today_pt = datetime.now(ZoneInfo("America/Los_Angeles")).strftime("%B %d, %Y")
 
@@ -189,15 +190,14 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
 
         def metric_vals(team: TeamInfo):
             if not team.metrics:
-                return None, None, None
+                return None, None
             m = team.metrics
             avi = f"{m['AVI']:+.2f}"
             cri = f"{m['CRI']*100:.1f}%"
-            tpi = f"{m['TPI']:+.2f}"
-            return avi, cri, tpi
+            return avi, cri
 
-        away_avi, away_cri, away_tpi = metric_vals(g.away)
-        home_avi, home_cri, home_tpi = metric_vals(g.home)
+        away_avi, away_cri = metric_vals(g.away)
+        home_avi, home_cri = metric_vals(g.home)
 
         def td_metric(val: Optional[str]) -> str:
             if val is None:
@@ -209,28 +209,37 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
             f"<td class='team-name'>{g.away.label}</td>",
             td_metric(away_avi),
             td_metric(away_cri),
-            td_metric(away_tpi),
             f"<td class='team-name'>{g.home.label}</td>",
             td_metric(home_avi),
             td_metric(home_cri),
-            td_metric(home_tpi),
         ]
 
         rows_html.append("<tr>" + "".join(row) + "</tr>")
 
-    rows_block = "\n".join(rows_html) if rows_html else "<tr><td colspan='3'>No games found for today.</td></tr>"
+    rows_block = "\n".join(rows_html) if rows_html else "<tr><td colspan='7'>No games found for today.</td></tr>"
 
-    # Compact legend based on the text you provided
+    # Compact legend
     legend_html = """
     <section class="legend">
       <h2>NBA Betting Metrics (Quick Guide)</h2>
       <ul>
-        <li><strong>AVI</strong> (ATS Value Index): Derived from spread performance. Positive = market undervalues team (potential value), negative = market overvalues.</li>
-        <li><strong>CRI</strong> (Cover Rate Index): ATS wins / ATS decisions. Above 50% = covers more often than not.</li>
-        <li><strong>TPI</strong> (Totals Performance Index): (team_score + opp_score) - total. Positive = games tend to go OVER, negative = UNDER.</li>
+        <li><strong>AVI</strong> (ATS Value Index): Avg spread performance (negative SPI). Positive = market undervalues team (potential value), negative = market overvalues.</li>
+        <li><strong>CRI</strong> (Cover Rate Index): ATS win rate. Above 50% = covers more often than not.</li>
       </ul>
+      <p><em>Higher AVI with decent CRI suggests betting value. Teams with negative AVI may be overvalued by the market.</em></p>
     </section>
     """.strip()
+    
+    # Generate plots HTML
+    plots_items = []
+    for g in games:
+        for team in (g.away, g.home):
+            if team.slug and team.slug in plot_files:
+                team_name = team.label
+                plot_path = plot_files[team.slug]
+                plots_items.append(f'<div class="plot-item"><img src="{plot_path}" alt="{team_name} ATS Performance" /></div>')
+    
+    plots_html = "\n        ".join(plots_items) if plots_items else "<p>No plots available for today's teams.</p>"
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -305,6 +314,37 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
         font-size: 0.75rem;
         color: #888fb2;
       }}
+      .plots-section {{
+        margin-top: 2rem;
+      }}
+      .plots-section h2 {{
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #252b45;
+        padding-bottom: 0.5rem;
+      }}
+      .plots-grid {{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+        gap: 2rem;
+        margin-top: 1.5rem;
+      }}
+      .plot-item {{
+        background: #151a30;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid #252b45;
+      }}
+      .plot-item img {{
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }}
+      @media (max-width: 768px) {{
+        .plots-grid {{
+          grid-template-columns: 1fr;
+        }}
+      }}
     </style>
   </head>
   <body>
@@ -315,18 +355,16 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
       <thead>
         <tr>
           <th rowspan="2">Time (PT)</th>
-          <th colspan="4">Away</th>
-          <th colspan="4">Home</th>
+          <th colspan="3">Away</th>
+          <th colspan="3">Home</th>
         </tr>
         <tr>
           <th>Team</th>
           <th>AVI</th>
           <th>CRI</th>
-          <th>TPI</th>
           <th>Team</th>
           <th>AVI</th>
           <th>CRI</th>
-          <th>TPI</th>
         </tr>
       </thead>
       <tbody>
@@ -337,8 +375,15 @@ def render_html(games: List[GameInfo], output_path: Path) -> None:
     {legend_html}
 
     <footer>
-      Metrics computed from TeamRankings betting data (SPI, AVI, CRI, TPI) using local CSVs.
+      Metrics computed from TeamRankings ATS results data. Data scraped from teamrankings.com/nba.
     </footer>
+
+    <section class="plots-section">
+      <h2>ATS Performance Charts for Today's Teams</h2>
+      <div class="plots-grid">
+        {plots_html}
+      </div>
+    </section>
   </body>
 </html>
 """
@@ -356,10 +401,22 @@ def main() -> None:
         print("WARNING: No games fetched for today; still generating page with notice.", file=sys.stderr)
 
     load_metrics_for_games(games, repo_root)
+    
+    # Generate plots for all teams playing today
+    teams_playing = set()
+    for game in games:
+        if game.away.slug:
+            teams_playing.add(game.away.slug)
+        if game.home.slug:
+            teams_playing.add(game.home.slug)
+    
+    print(f"Generating ATS plots for {len(teams_playing)} teams...")
+    plot_files = generate_plots_for_teams(list(teams_playing), data_dir=str(repo_root), output_dir=str(repo_root / "plots"))
+    print(f"Generated {len(plot_files)} plots")
 
     # Write to index.html at repo root so GitHub Pages (root) serves it
     output_path = repo_root / "index.html"
-    render_html(games, output_path)
+    render_html(games, output_path, plot_files)
 
 
 if __name__ == "__main__":

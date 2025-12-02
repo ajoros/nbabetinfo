@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# Old teamrankings data (using ats_results now)
+teamrankings_*.csv
+
+# Secrets
+*deployghkey.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
