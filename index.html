@@ -19,13 +19,18 @@
         font-size: 1.1rem;
         margin-top: 1.5rem;
       }
+      .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-top: 1rem;
+      }
       table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 1rem;
         background: #151a30;
         border-radius: 6px;
         overflow: hidden;
+        min-width: 600px;
       }
       th, td {
         padding: 0.4rem 0.5rem;
@@ -98,8 +103,52 @@
         border-radius: 4px;
       }
       @media (max-width: 768px) {
+        body {
+          margin: 1rem;
+        }
+        h1 {
+          font-size: 1.5rem;
+        }
+        h2 {
+          font-size: 1rem;
+        }
+        th, td {
+          padding: 0.35rem 0.4rem;
+          font-size: 0.75rem;
+        }
+        .legend {
+          font-size: 0.8rem;
+        }
+        .legend ul {
+          padding-left: 1rem;
+        }
+        .plots-section h2 {
+          font-size: 1.1rem;
+        }
         .plots-grid {
           grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+        .plot-item {
+          padding: 0.75rem;
+        }
+      }
+      @media (max-width: 480px) {
+        body {
+          margin: 0.75rem;
+        }
+        h1 {
+          font-size: 1.3rem;
+        }
+        th, td {
+          padding: 0.3rem 0.35rem;
+          font-size: 0.7rem;
+        }
+        .legend {
+          font-size: 0.75rem;
+        }
+        footer {
+          font-size: 0.7rem;
         }
       }
     </style>
@@ -108,31 +157,33 @@
     <h1>NBA Betting Info</h1>
     <div>Games for December 02, 2025 (times in Pacific Time)</div>
 
-    <table>
-      <thead>
-        <tr>
-          <th rowspan="2">Time (PT)</th>
-          <th colspan="3">Away</th>
-          <th colspan="3">Home</th>
-        </tr>
-        <tr>
-          <th>Team</th>
-          <th>AVI</th>
-          <th>CRI</th>
-          <th>Team</th>
-          <th>AVI</th>
-          <th>CRI</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td class='time'>4:00 PM PT</td><td class='team-name'>Washington Wizards</td><td class='metric'>+4.45</td><td class='metric'>31.6%</td><td class='team-name'>Philadelphia 76ers</td><td class='metric'>+0.50</td><td class='metric'>57.9%</td></tr>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">Time (PT)</th>
+            <th colspan="3">Away</th>
+            <th colspan="3">Home</th>
+          </tr>
+          <tr>
+            <th>Team</th>
+            <th>AVI</th>
+            <th>CRI</th>
+            <th>Team</th>
+            <th>AVI</th>
+            <th>CRI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class='time'>4:00 PM PT</td><td class='team-name'>Washington Wizards</td><td class='metric'>+4.45</td><td class='metric'>31.6%</td><td class='team-name'>Philadelphia 76ers</td><td class='metric'>+0.50</td><td class='metric'>57.9%</td></tr>
 <tr><td class='time'>4:30 PM PT</td><td class='team-name'>Portland Trail Blazers</td><td class='metric'>+0.88</td><td class='metric'>50.0%</td><td class='team-name'>Toronto Raptors</td><td class='metric'>-2.74</td><td class='metric'>47.6%</td></tr>
 <tr><td class='time'>5:00 PM PT</td><td class='team-name'>New York Knicks</td><td class='metric'>-1.55</td><td class='metric'>63.2%</td><td class='team-name'>Boston Celtics</td><td class='metric'>-1.80</td><td class='metric'>50.0%</td></tr>
 <tr><td class='time'>5:00 PM PT</td><td class='team-name'>Minnesota Timberwolves</td><td class='metric'>+0.47</td><td class='metric'>40.0%</td><td class='team-name'>New Orleans Pelicans</td><td class='metric'>+2.45</td><td class='metric'>52.4%</td></tr>
 <tr><td class='time'>5:00 PM PT</td><td class='team-name'>Memphis Grizzlies</td><td class='metric'>+0.31</td><td class='metric'>42.9%</td><td class='team-name'>San Antonio Spurs</td><td class='metric'>-3.05</td><td class='metric'>47.4%</td></tr>
 <tr><td class='time'>8:00 PM PT</td><td class='team-name'>Oklahoma City Thunder</td><td class='metric'>-3.83</td><td class='metric'>47.6%</td><td class='team-name'>Golden State Warriors</td><td class='metric'>+2.26</td><td class='metric'>47.6%</td></tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
 
     <section class="legend">
       <h2>NBA Betting Metrics (Quick Guide)</h2>

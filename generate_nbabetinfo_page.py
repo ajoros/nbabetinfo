@@ -262,13 +262,18 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
         font-size: 1.1rem;
         margin-top: 1.5rem;
       }}
+      .table-wrapper {{
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-top: 1rem;
+      }}
       table {{
         width: 100%;
         border-collapse: collapse;
-        margin-top: 1rem;
         background: #151a30;
         border-radius: 6px;
         overflow: hidden;
+        min-width: 600px;
       }}
       th, td {{
         padding: 0.4rem 0.5rem;
@@ -341,8 +346,52 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
         border-radius: 4px;
       }}
       @media (max-width: 768px) {{
+        body {{
+          margin: 1rem;
+        }}
+        h1 {{
+          font-size: 1.5rem;
+        }}
+        h2 {{
+          font-size: 1rem;
+        }}
+        th, td {{
+          padding: 0.35rem 0.4rem;
+          font-size: 0.75rem;
+        }}
+        .legend {{
+          font-size: 0.8rem;
+        }}
+        .legend ul {{
+          padding-left: 1rem;
+        }}
+        .plots-section h2 {{
+          font-size: 1.1rem;
+        }}
         .plots-grid {{
           grid-template-columns: 1fr;
+          gap: 1rem;
+        }}
+        .plot-item {{
+          padding: 0.75rem;
+        }}
+      }}
+      @media (max-width: 480px) {{
+        body {{
+          margin: 0.75rem;
+        }}
+        h1 {{
+          font-size: 1.3rem;
+        }}
+        th, td {{
+          padding: 0.3rem 0.35rem;
+          font-size: 0.7rem;
+        }}
+        .legend {{
+          font-size: 0.75rem;
+        }}
+        footer {{
+          font-size: 0.7rem;
         }}
       }}
     </style>
@@ -351,26 +400,28 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
     <h1>NBA Betting Info</h1>
     <div>Games for {today_pt} (times in Pacific Time)</div>
 
-    <table>
-      <thead>
-        <tr>
-          <th rowspan="2">Time (PT)</th>
-          <th colspan="3">Away</th>
-          <th colspan="3">Home</th>
-        </tr>
-        <tr>
-          <th>Team</th>
-          <th>AVI</th>
-          <th>CRI</th>
-          <th>Team</th>
-          <th>AVI</th>
-          <th>CRI</th>
-        </tr>
-      </thead>
-      <tbody>
-        {rows_block}
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">Time (PT)</th>
+            <th colspan="3">Away</th>
+            <th colspan="3">Home</th>
+          </tr>
+          <tr>
+            <th>Team</th>
+            <th>AVI</th>
+            <th>CRI</th>
+            <th>Team</th>
+            <th>AVI</th>
+            <th>CRI</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows_block}
+        </tbody>
+      </table>
+    </div>
 
     {legend_html}
 
