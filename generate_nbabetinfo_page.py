@@ -22,6 +22,13 @@ from zoneinfo import ZoneInfo  # Python 3.9+
 from calculate_ats_metrics import calculate_team_ats_metrics
 from generate_ats_plots import generate_plots_for_teams
 
+try:
+    from bs4 import BeautifulSoup
+    HAS_BS4 = True
+except ImportError:
+    HAS_BS4 = False
+    print("WARNING: BeautifulSoup not available. Spreads will not be displayed.", file=sys.stderr)
+
 # Mapping from NBA API "city name" + "team name" to TeamRankings team slug
 TEAM_NAME_TO_SLUG: Dict[str, str] = {
     "Atlanta Hawks": "atlanta-hawks",
@@ -58,6 +65,7 @@ TEAM_NAME_TO_SLUG: Dict[str, str] = {
 
 
 NBA_SCOREBOARD_URL = "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json"
+TEAMRANKINGS_NBA_URL = "https://www.teamrankings.com/nba/"
 
 
 @dataclass
@@ -65,6 +73,7 @@ class TeamInfo:
     label: str  # e.g. "Boston Celtics"
     slug: Optional[str]  # TeamRankings slug, if known
     metrics: Optional[Dict]  # SPI/AVI/CRI/TPI dict from calculate_team_metrics
+    spread: Optional[str] = None  # Today's spread, e.g. "-13.5" or "+5.5"
 
 
 @dataclass
@@ -73,6 +82,86 @@ class GameInfo:
     start_time_pt: datetime
     away: TeamInfo
     home: TeamInfo
+
+
+def fetch_todays_spreads() -> Dict[str, Dict[str, str]]:
+    """Fetch today's spreads from TeamRankings.com.
+    
+    Returns dict mapping team labels to their spread info:
+    {"Boston Celtics": {"spread": "-1.5", "is_home": True}, ...}
+    """
+    if not HAS_BS4:
+        return {}
+    
+    try:
+        resp = requests.get(TEAMRANKINGS_NBA_URL, timeout=15)
+        resp.raise_for_status()
+    except Exception as e:
+        print(f"WARNING: Failed to fetch spreads from TeamRankings: {e}", file=sys.stderr)
+        return {}
+    
+    soup = BeautifulSoup(resp.text, 'html.parser')
+    spreads = {}
+    
+    # Find the matchups section in the right sidebar
+    matchup_links = soup.select('aside.right-sidebar table.tr-table a')
+    
+    for link in matchup_links:
+        text = link.get_text(strip=True)
+        # Examples:
+        # "Washington at Philadelphia (-13.5)"
+        # "Minnesota (-11.5) at New Orleans"
+        
+        import re
+        # Pattern to extract teams and spread
+        # Look for "Team1 at Team2 (-X.X)" or "Team1 (-X.X) at Team2"
+        match = re.search(r'(.+?)\s+(?:\(([+-]?[\d.]+)\)\s+)?at\s+(.+?)(?:\s+\(([+-]?[\d.]+)\))?$', text)
+        
+        if match:
+            away_team = match.group(1).strip()
+            away_spread = match.group(2)  # Could be None
+            home_team = match.group(3).strip()
+            home_spread = match.group(4)  # Could be None
+            
+            # Normalize team names to match our TEAM_NAME_TO_SLUG keys
+            # Map short names to full names
+            team_name_map = {
+                "Washington": "Washington Wizards",
+                "Philadelphia": "Philadelphia 76ers",
+                "Portland": "Portland Trail Blazers",
+                "Toronto": "Toronto Raptors",
+                "Memphis": "Memphis Grizzlies",
+                "San Antonio": "San Antonio Spurs",
+                "New York": "New York Knicks",
+                "Boston": "Boston Celtics",
+                "Minnesota": "Minnesota Timberwolves",
+                "New Orleans": "New Orleans Pelicans",
+                "Okla City": "Oklahoma City Thunder",
+                "Golden State": "Golden State Warriors",
+            }
+            
+            away_full = team_name_map.get(away_team, away_team)
+            home_full = team_name_map.get(home_team, home_team)
+            
+            # Determine spreads
+            if home_spread:
+                spreads[home_full] = {"spread": home_spread, "is_home": True}
+                # Calculate away spread (opposite)
+                try:
+                    away_val = -float(home_spread)
+                    spreads[away_full] = {"spread": f"{away_val:+.1f}", "is_home": False}
+                except ValueError:
+                    pass
+            elif away_spread:
+                spreads[away_full] = {"spread": away_spread, "is_home": False}
+                # Calculate home spread (opposite)
+                try:
+                    home_val = -float(away_spread)
+                    spreads[home_full] = {"spread": f"{home_val:+.1f}", "is_home": True}
+                except ValueError:
+                    pass
+    
+    return spreads
 
 
 def fetch_todays_games() -> List[GameInfo]:
@@ -205,15 +294,24 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
             if val is None:
                 return "<td class='metric na'>—</td>"
             return f"<td class='metric'>{val}</td>"
+        
+        # Format team names with spread
+        away_display = g.away.label
+        if g.away.spread:
+            away_display += f" ({g.away.spread})"
+        
+        home_display = g.home.label
+        if g.home.spread:
+            home_display += f" ({g.home.spread})"
 
         row = [
             f"<td class='time'>{time_str}</td>",
-            f"<td class='team-name'>{g.away.label}</td>",
+            f"<td class='team-name'>{away_display}</td>",
             td_metric(away_total),
             td_metric(away_fav),
             td_metric(away_dog),
             td_metric(away_cri),
-            f"<td class='team-name'>{g.home.label}</td>",
+            f"<td class='team-name'>{home_display}</td>",
             td_metric(home_total),
             td_metric(home_fav),
             td_metric(home_dog),
@@ -462,6 +560,17 @@ def main() -> None:
     games = fetch_todays_games()
     if not games:
         print("WARNING: No games fetched for today; still generating page with notice.", file=sys.stderr)
+
+    # Fetch today's spreads
+    spreads = fetch_todays_spreads()
+    if spreads:
+        print(f"Fetched spreads for {len(spreads)} teams")
+        # Attach spreads to games
+        for game in games:
+            if game.away.label in spreads:
+                game.away.spread = spreads[game.away.label]["spread"]
+            if game.home.label in spreads:
+                game.home.spread = spreads[game.home.label]["spread"]
 
     load_metrics_for_games(games, repo_root)
     
