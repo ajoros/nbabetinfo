@@ -16,8 +16,9 @@ def calculate_team_ats_metrics(csv_file):
     Calculate betting metrics for a single team from their ATS results CSV.
     
     Returns dict with:
-    - SPI (Spread Performance Index): avg ATS diff (margin vs spread)
-    - AVI (ATS Value Index): -SPI (market mispricing)
+    - TOTAL_DIFF: avg ATS diff across all games
+    - FAV_DIFF: avg ATS diff when team is favorite (negative spread)
+    - DOG_DIFF: avg ATS diff when team is underdog (positive spread)
     - CRI (Cover Rate Index): ATS win rate
     - games_played: number of completed games
     - ats_wins: number of covers
@@ -25,6 +26,8 @@ def calculate_team_ats_metrics(csv_file):
     """
     
     ats_diffs = []
+    fav_diffs = []  # When spread is negative (team is favorite)
+    dog_diffs = []  # When spread is positive (team is underdog)
     ats_wins = 0
     ats_losses = 0
     
@@ -39,10 +42,18 @@ def calculate_team_ats_metrics(csv_file):
                 
                 try:
                     ats_diff = float(row['ats_diff'])
+                    spread = float(row['spread'])
                 except (ValueError, TypeError):
                     continue
                 
                 ats_diffs.append(ats_diff)
+                
+                # Categorize by favorite/underdog
+                if spread < 0:
+                    fav_diffs.append(ats_diff)
+                elif spread > 0:
+                    dog_diffs.append(ats_diff)
+                # If spread == 0 (pick'em), include in total but not fav/dog
                 
                 # Positive diff = covered, negative = didn't cover
                 if ats_diff > 0:
@@ -60,16 +71,21 @@ def calculate_team_ats_metrics(csv_file):
         return None
     
     # Calculate metrics
-    spi = sum(ats_diffs) / len(ats_diffs)
-    avi = -spi  # Positive AVI means market undervalues the team
+    total_diff = sum(ats_diffs) / len(ats_diffs)
+    fav_diff = sum(fav_diffs) / len(fav_diffs) if fav_diffs else None
+    dog_diff = sum(dog_diffs) / len(dog_diffs) if dog_diffs else None
+    
     ats_decisions = ats_wins + ats_losses
     cri = ats_wins / ats_decisions if ats_decisions > 0 else 0
     
     return {
-        'SPI': spi,
-        'AVI': avi,
+        'TOTAL_DIFF': total_diff,
+        'FAV_DIFF': fav_diff,
+        'DOG_DIFF': dog_diff,
         'CRI': cri,
         'games_played': len(ats_diffs),
+        'fav_games': len(fav_diffs),
+        'dog_games': len(dog_diffs),
         'ats_wins': ats_wins,
         'ats_losses': ats_losses,
         'ats_decisions': ats_decisions
@@ -109,43 +125,49 @@ def display_team_rankings(all_metrics):
         return
     
     # Sort teams by different metrics
-    by_avi = sorted(all_metrics.items(), key=lambda x: x[1]['AVI'], reverse=True)
+    by_total_diff = sorted(all_metrics.items(), key=lambda x: x[1]['TOTAL_DIFF'], reverse=True)
     by_cri = sorted(all_metrics.items(), key=lambda x: x[1]['CRI'], reverse=True)
-    by_spi = sorted(all_metrics.items(), key=lambda x: x[1]['SPI'])
     
-    print("=" * 90)
+    print("=" * 100)
     print("NBA ATS METRICS - TEAM RANKINGS")
-    print("=" * 90)
+    print("=" * 100)
     print()
     
-    # Top 10 by AVI (best value bets)
-    print("TOP 10 TEAMS BY AVI (Market Undervalues - Potential Value)")
-    print("-" * 90)
-    for i, (team, metrics) in enumerate(by_avi[:10], 1):
-        print(f"{i:2d}. {team:30s}  AVI: {metrics['AVI']:+.2f}  CRI: {metrics['CRI']:.1%}  SPI: {metrics['SPI']:+.2f}  ({metrics['ats_wins']}-{metrics['ats_losses']})")
+    # Top 10 by Total Diff
+    print("TOP 10 TEAMS BY TOTAL DIFF (Best Overall Spread Performance)")
+    print("-" * 100)
+    for i, (team, metrics) in enumerate(by_total_diff[:10], 1):
+        fav = f"{metrics['FAV_DIFF']:+.2f}" if metrics['FAV_DIFF'] is not None else "N/A"
+        dog = f"{metrics['DOG_DIFF']:+.2f}" if metrics['DOG_DIFF'] is not None else "N/A"
+        print(f"{i:2d}. {team:30s}  Total: {metrics['TOTAL_DIFF']:+.2f}  Fav: {fav:>6s}  Dog: {dog:>6s}  CRI: {metrics['CRI']:.1%}  ({metrics['ats_wins']}-{metrics['ats_losses']})")
     print()
     
-    # Bottom 10 by AVI (avoid)
-    print("BOTTOM 10 TEAMS BY AVI (Market Overvalues - Avoid)")
-    print("-" * 90)
-    for i, (team, metrics) in enumerate(reversed(by_avi[-10:]), 1):
-        print(f"{i:2d}. {team:30s}  AVI: {metrics['AVI']:+.2f}  CRI: {metrics['CRI']:.1%}  SPI: {metrics['SPI']:+.2f}  ({metrics['ats_wins']}-{metrics['ats_losses']})")
+    # Bottom 10 by Total Diff
+    print("BOTTOM 10 TEAMS BY TOTAL DIFF (Worst Overall Spread Performance)")
+    print("-" * 100)
+    for i, (team, metrics) in enumerate(reversed(by_total_diff[-10:]), 1):
+        fav = f"{metrics['FAV_DIFF']:+.2f}" if metrics['FAV_DIFF'] is not None else "N/A"
+        dog = f"{metrics['DOG_DIFF']:+.2f}" if metrics['DOG_DIFF'] is not None else "N/A"
+        print(f"{i:2d}. {team:30s}  Total: {metrics['TOTAL_DIFF']:+.2f}  Fav: {fav:>6s}  Dog: {dog:>6s}  CRI: {metrics['CRI']:.1%}  ({metrics['ats_wins']}-{metrics['ats_losses']})")
     print()
     
     # Top 10 by CRI (best cover rate)
     print("TOP 10 TEAMS BY CRI (Cover Most Often)")
-    print("-" * 90)
+    print("-" * 100)
     for i, (team, metrics) in enumerate(by_cri[:10], 1):
-        print(f"{i:2d}. {team:30s}  CRI: {metrics['CRI']:.1%}  AVI: {metrics['AVI']:+.2f}  SPI: {metrics['SPI']:+.2f}  ({metrics['ats_wins']}-{metrics['ats_losses']})")
+        fav = f"{metrics['FAV_DIFF']:+.2f}" if metrics['FAV_DIFF'] is not None else "N/A"
+        dog = f"{metrics['DOG_DIFF']:+.2f}" if metrics['DOG_DIFF'] is not None else "N/A"
+        print(f"{i:2d}. {team:30s}  CRI: {metrics['CRI']:.1%}  Total: {metrics['TOTAL_DIFF']:+.2f}  Fav: {fav:>6s}  Dog: {dog:>6s}  ({metrics['ats_wins']}-{metrics['ats_losses']})")
     print()
     
-    print("=" * 90)
+    print("=" * 100)
     print()
     print("METRIC DEFINITIONS:")
-    print("  SPI (Spread Performance Index)  = Avg ATS diff (how much team beats/misses spread)")
-    print("  AVI (ATS Value Index)           = -SPI (positive = market undervalues team)")
-    print("  CRI (Cover Rate Index)          = ATS win rate (% of games covering spread)")
-    print("=" * 90)
+    print("  TOTAL_DIFF = Avg ATS differential across all games")
+    print("  FAV_DIFF   = Avg ATS differential when team is favorite (negative spread)")
+    print("  DOG_DIFF   = Avg ATS differential when team is underdog (positive spread)")
+    print("  CRI        = Cover Rate Index - ATS win rate (% of games covering spread)")
+    print("=" * 100)
 
 
 def main():

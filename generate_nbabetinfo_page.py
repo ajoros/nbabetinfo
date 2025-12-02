@@ -190,14 +190,16 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
 
         def metric_vals(team: TeamInfo):
             if not team.metrics:
-                return None, None
+                return None, None, None, None
             m = team.metrics
-            avi = f"{m['AVI']:+.2f}"
+            total_diff = f"{m['TOTAL_DIFF']:+.2f}"
+            fav_diff = f"{m['FAV_DIFF']:+.2f}" if m['FAV_DIFF'] is not None else None
+            dog_diff = f"{m['DOG_DIFF']:+.2f}" if m['DOG_DIFF'] is not None else None
             cri = f"{m['CRI']*100:.1f}%"
-            return avi, cri
+            return total_diff, fav_diff, dog_diff, cri
 
-        away_avi, away_cri = metric_vals(g.away)
-        home_avi, home_cri = metric_vals(g.home)
+        away_total, away_fav, away_dog, away_cri = metric_vals(g.away)
+        home_total, home_fav, home_dog, home_cri = metric_vals(g.home)
 
         def td_metric(val: Optional[str]) -> str:
             if val is None:
@@ -207,26 +209,32 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
         row = [
             f"<td class='time'>{time_str}</td>",
             f"<td class='team-name'>{g.away.label}</td>",
-            td_metric(away_avi),
+            td_metric(away_total),
+            td_metric(away_fav),
+            td_metric(away_dog),
             td_metric(away_cri),
             f"<td class='team-name'>{g.home.label}</td>",
-            td_metric(home_avi),
+            td_metric(home_total),
+            td_metric(home_fav),
+            td_metric(home_dog),
             td_metric(home_cri),
         ]
 
         rows_html.append("<tr>" + "".join(row) + "</tr>")
 
-    rows_block = "\n".join(rows_html) if rows_html else "<tr><td colspan='7'>No games found for today.</td></tr>"
+    rows_block = "\n".join(rows_html) if rows_html else "<tr><td colspan='11'>No games found for today.</td></tr>"
 
     # Compact legend
     legend_html = """
     <section class="legend">
       <h2>NBA Betting Metrics (Quick Guide)</h2>
       <ul>
-        <li><strong>AVI</strong> (ATS Value Index): Avg spread performance (negative SPI). Positive = market undervalues team (potential value), negative = market overvalues.</li>
-        <li><strong>CRI</strong> (Cover Rate Index): ATS win rate. Above 50% = covers more often than not.</li>
+        <li><strong>Total DIFF</strong>: Average ATS differential across all games. Shows overall spread performance.</li>
+        <li><strong>Fav DIFF</strong>: Average ATS differential when team is favorite (negative spread). How they perform when favored.</li>
+        <li><strong>Dog DIFF</strong>: Average ATS differential when team is underdog (positive spread). How they perform as underdog.</li>
+        <li><strong>CRI</strong> (Cover Rate): Percentage of games covering the spread. Above 50% = covers more often than not.</li>
       </ul>
-      <p><em>Higher AVI with decent CRI suggests betting value. Teams with negative AVI may be overvalued by the market.</em></p>
+      <p><em>Positive differentials indicate beating the spread. Look for teams with positive DIFFs and high CRI for betting value.</em></p>
     </section>
     """.strip()
     
@@ -273,7 +281,7 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
         background: #151a30;
         border-radius: 6px;
         overflow: hidden;
-        min-width: 600px;
+        min-width: 800px;
       }}
       th, td {{
         padding: 0.4rem 0.5rem;
@@ -405,15 +413,19 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
         <thead>
           <tr>
             <th rowspan="2">Time (PT)</th>
-            <th colspan="3">Away</th>
-            <th colspan="3">Home</th>
+            <th colspan="5">Away</th>
+            <th colspan="5">Home</th>
           </tr>
           <tr>
             <th>Team</th>
-            <th>AVI</th>
+            <th>Total</th>
+            <th>Fav</th>
+            <th>Dog</th>
             <th>CRI</th>
             <th>Team</th>
-            <th>AVI</th>
+            <th>Total</th>
+            <th>Fav</th>
+            <th>Dog</th>
             <th>CRI</th>
           </tr>
         </thead>
