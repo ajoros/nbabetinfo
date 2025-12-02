@@ -71,6 +71,37 @@
         font-size: 0.75rem;
         color: #888fb2;
       }
+      .plots-section {
+        margin-top: 2rem;
+      }
+      .plots-section h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #252b45;
+        padding-bottom: 0.5rem;
+      }
+      .plots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+        gap: 2rem;
+        margin-top: 1.5rem;
+      }
+      .plot-item {
+        background: #151a30;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px solid #252b45;
+      }
+      .plot-item img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+      }
+      @media (max-width: 768px) {
+        .plots-grid {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
   </head>
   <body>
@@ -81,44 +112,57 @@
       <thead>
         <tr>
           <th rowspan="2">Time (PT)</th>
-          <th colspan="4">Away</th>
-          <th colspan="4">Home</th>
+          <th colspan="3">Away</th>
+          <th colspan="3">Home</th>
         </tr>
         <tr>
           <th>Team</th>
           <th>AVI</th>
           <th>CRI</th>
-          <th>TPI</th>
           <th>Team</th>
           <th>AVI</th>
           <th>CRI</th>
-          <th>TPI</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td class='time'>4:00 PM PT</td><td class='team-name'>Atlanta Hawks</td><td class='metric'>-2.32</td><td class='metric'>54.5%</td><td class='metric'>+0.70</td><td class='team-name'>Detroit Pistons</td><td class='metric'>-1.71</td><td class='metric'>61.9%</td><td class='metric'>+0.71</td></tr>
-<tr><td class='time'>4:00 PM PT</td><td class='team-name'>Cleveland Cavaliers</td><td class='metric'>+2.30</td><td class='metric'>31.8%</td><td class='metric'>-0.16</td><td class='team-name'>Indiana Pacers</td><td class='metric'>+3.76</td><td class='metric'>52.4%</td><td class='metric'>-4.40</td></tr>
-<tr><td class='time'>4:00 PM PT</td><td class='team-name'>Milwaukee Bucks</td><td class='metric'>+2.73</td><td class='metric'>40.9%</td><td class='metric'>+2.61</td><td class='team-name'>Washington Wizards</td><td class='metric'>+4.45</td><td class='metric'>31.6%</td><td class='metric'>+5.05</td></tr>
-<tr><td class='time'>4:30 PM PT</td><td class='team-name'>Charlotte Hornets</td><td class='metric'>+0.36</td><td class='metric'>47.6%</td><td class='metric'>+0.33</td><td class='team-name'>Brooklyn Nets</td><td class='metric'>-0.33</td><td class='metric'>45.0%</td><td class='metric'>-0.72</td></tr>
-<tr><td class='time'>4:30 PM PT</td><td class='team-name'>LA Clippers</td><td class='metric na'>—</td><td class='metric na'>—</td><td class='metric na'>—</td><td class='team-name'>Miami Heat</td><td class='metric'>-6.17</td><td class='metric'>61.9%</td><td class='metric'>+5.71</td></tr>
-<tr><td class='time'>4:30 PM PT</td><td class='team-name'>Chicago Bulls</td><td class='metric'>+1.95</td><td class='metric'>50.0%</td><td class='metric'>+2.95</td><td class='team-name'>Orlando Magic</td><td class='metric'>-1.98</td><td class='metric'>52.4%</td><td class='metric'>+5.31</td></tr>
-<tr><td class='time'>6:00 PM PT</td><td class='team-name'>Dallas Mavericks</td><td class='metric'>+1.73</td><td class='metric'>45.5%</td><td class='metric'>-2.89</td><td class='team-name'>Denver Nuggets</td><td class='metric'>-1.20</td><td class='metric'>60.0%</td><td class='metric'>+4.67</td></tr>
-<tr><td class='time'>6:00 PM PT</td><td class='team-name'>Houston Rockets</td><td class='metric'>-4.17</td><td class='metric'>66.7%</td><td class='metric'>+3.19</td><td class='team-name'>Utah Jazz</td><td class='metric'>-0.10</td><td class='metric'>55.0%</td><td class='metric'>+8.10</td></tr>
-<tr><td class='time'>7:00 PM PT</td><td class='team-name'>Phoenix Suns</td><td class='metric'>-5.66</td><td class='metric'>68.2%</td><td class='metric'>+0.18</td><td class='team-name'>Los Angeles Lakers</td><td class='metric na'>—</td><td class='metric na'>—</td><td class='metric na'>—</td></tr>
+        <tr><td class='time'>4:00 PM PT</td><td class='team-name'>Washington Wizards</td><td class='metric'>+4.45</td><td class='metric'>31.6%</td><td class='team-name'>Philadelphia 76ers</td><td class='metric'>+0.50</td><td class='metric'>57.9%</td></tr>
+<tr><td class='time'>4:30 PM PT</td><td class='team-name'>Portland Trail Blazers</td><td class='metric'>+0.88</td><td class='metric'>50.0%</td><td class='team-name'>Toronto Raptors</td><td class='metric'>-2.74</td><td class='metric'>47.6%</td></tr>
+<tr><td class='time'>5:00 PM PT</td><td class='team-name'>New York Knicks</td><td class='metric'>-1.55</td><td class='metric'>63.2%</td><td class='team-name'>Boston Celtics</td><td class='metric'>-1.80</td><td class='metric'>50.0%</td></tr>
+<tr><td class='time'>5:00 PM PT</td><td class='team-name'>Minnesota Timberwolves</td><td class='metric'>+0.47</td><td class='metric'>40.0%</td><td class='team-name'>New Orleans Pelicans</td><td class='metric'>+2.45</td><td class='metric'>52.4%</td></tr>
+<tr><td class='time'>5:00 PM PT</td><td class='team-name'>Memphis Grizzlies</td><td class='metric'>+0.31</td><td class='metric'>42.9%</td><td class='team-name'>San Antonio Spurs</td><td class='metric'>-3.05</td><td class='metric'>47.4%</td></tr>
+<tr><td class='time'>8:00 PM PT</td><td class='team-name'>Oklahoma City Thunder</td><td class='metric'>-3.83</td><td class='metric'>47.6%</td><td class='team-name'>Golden State Warriors</td><td class='metric'>+2.26</td><td class='metric'>47.6%</td></tr>
       </tbody>
     </table>
 
     <section class="legend">
       <h2>NBA Betting Metrics (Quick Guide)</h2>
       <ul>
-        <li><strong>AVI</strong> (ATS Value Index): Derived from spread performance. Positive = market undervalues team (potential value), negative = market overvalues.</li>
-        <li><strong>CRI</strong> (Cover Rate Index): ATS wins / ATS decisions. Above 50% = covers more often than not.</li>
-        <li><strong>TPI</strong> (Totals Performance Index): (team_score + opp_score) - total. Positive = games tend to go OVER, negative = UNDER.</li>
+        <li><strong>AVI</strong> (ATS Value Index): Avg spread performance (negative SPI). Positive = market undervalues team (potential value), negative = market overvalues.</li>
+        <li><strong>CRI</strong> (Cover Rate Index): ATS win rate. Above 50% = covers more often than not.</li>
       </ul>
+      <p><em>Higher AVI with decent CRI suggests betting value. Teams with negative AVI may be overvalued by the market.</em></p>
     </section>
 
     <footer>
-      Metrics computed from TeamRankings betting data (SPI, AVI, CRI, TPI) using local CSVs.
+      Metrics computed from TeamRankings ATS results data. Data scraped from teamrankings.com/nba.
     </footer>
+
+    <section class="plots-section">
+      <h2>ATS Performance Charts for Today's Teams</h2>
+      <div class="plots-grid">
+        <div class="plot-item"><img src="plots/ats_washington-wizards.png" alt="Washington Wizards ATS Performance" /></div>
+        <div class="plot-item"><img src="plots/ats_philadelphia-76ers.png" alt="Philadelphia 76ers ATS Performance" /></div>
+        <div class="plot-item"><img src="plots/ats_portland-trail-blazers.png" alt="Portland Trail Blazers ATS Performance" /></div>
+        <div class="plot-item"><img src="plots/ats_toronto-raptors.png" alt="Toronto Raptors ATS Performance" /></div>
+        <div class="plot-item"><img src="plots/ats_new-york-knicks.png" alt="New York Knicks ATS Performance" /></div>
+        <div class="plot-item"><img src="plots/ats_boston-celtics.png" alt="Boston Celtics ATS Performance" /></div>
+        <div class="plot-item"><img src="plots/ats_minnesota-timberwolves.png" alt="Minnesota Timberwolves ATS Performance" /></div>
+        <div class="plot-item"><img src="plots/ats_new-orleans-pelicans.png" alt="New Orleans Pelicans ATS Performance" /></div>
+        <div class="plot-item"><img src="plots/ats_memphis-grizzlies.png" alt="Memphis Grizzlies ATS Performance" /></div>
+        <div class="plot-item"><img src="plots/ats_san-antonio-spurs.png" alt="San Antonio Spurs ATS Performance" /></div>
+        <div class="plot-item"><img src="plots/ats_oklahoma-city-thunder.png" alt="Oklahoma City Thunder ATS Performance" /></div>
+        <div class="plot-item"><img src="plots/ats_golden-state-warriors.png" alt="Golden State Warriors ATS Performance" /></div>
+      </div>
+    </section>
   </body>
 </html>
