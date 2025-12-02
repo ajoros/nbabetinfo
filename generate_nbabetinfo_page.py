@@ -290,10 +290,33 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
         away_total, away_fav, away_dog, away_cri = metric_vals(g.away)
         home_total, home_fav, home_dog, home_cri = metric_vals(g.home)
 
-        def td_metric(val: Optional[str]) -> str:
+        def td_metric(val: Optional[str], highlight: bool = False) -> str:
             if val is None:
-                return "<td class='metric na'>—</td>"
-            return f"<td class='metric'>{val}</td>"
+                css_class = "metric na" + (" highlight" if highlight else "")
+                return f"<td class='{css_class}'>—</td>"
+            css_class = "metric" + (" highlight" if highlight else "")
+            return f"<td class='{css_class}'>{val}</td>"
+        
+        # Determine if teams are favorite or underdog today
+        away_is_fav = False
+        away_is_dog = False
+        if g.away.spread:
+            try:
+                spread_val = float(g.away.spread)
+                away_is_fav = spread_val < 0
+                away_is_dog = spread_val > 0
+            except ValueError:
+                pass
+        
+        home_is_fav = False
+        home_is_dog = False
+        if g.home.spread:
+            try:
+                spread_val = float(g.home.spread)
+                home_is_fav = spread_val < 0
+                home_is_dog = spread_val > 0
+            except ValueError:
+                pass
         
         # Format team names with spread
         away_display = g.away.label
@@ -308,13 +331,13 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
             f"<td class='time'>{time_str}</td>",
             f"<td class='team-name'>{away_display}</td>",
             td_metric(away_total),
-            td_metric(away_fav),
-            td_metric(away_dog),
+            td_metric(away_fav, highlight=away_is_fav),
+            td_metric(away_dog, highlight=away_is_dog),
             td_metric(away_cri),
             f"<td class='team-name'>{home_display}</td>",
             td_metric(home_total),
-            td_metric(home_fav),
-            td_metric(home_dog),
+            td_metric(home_fav, highlight=home_is_fav),
+            td_metric(home_dog, highlight=home_is_dog),
             td_metric(home_cri),
         ]
 
@@ -409,6 +432,10 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
       }}
       td.metric.na {{
         color: #555b80;
+      }}
+      td.metric.highlight {{
+        background: #2a3f5f;
+        font-weight: 600;
       }}
       .legend {{
         font-size: 0.85rem;
