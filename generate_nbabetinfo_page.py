@@ -290,11 +290,23 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
         away_total, away_fav, away_dog, away_cri = metric_vals(g.away)
         home_total, home_fav, home_dog, home_cri = metric_vals(g.home)
 
-        def td_metric(val: Optional[str], highlight: bool = False) -> str:
+        def td_metric(val: Optional[str], highlight: bool = False, warning: bool = False, strong: bool = False) -> str:
             if val is None:
-                css_class = "metric na" + (" highlight" if highlight else "")
+                css_class = "metric na"
+                if highlight:
+                    css_class += " highlight"
+                if warning:
+                    css_class += " warning"
+                if strong:
+                    css_class += " strong"
                 return f"<td class='{css_class}'>—</td>"
-            css_class = "metric" + (" highlight" if highlight else "")
+            css_class = "metric"
+            if highlight:
+                css_class += " highlight"
+            if warning:
+                css_class += " warning"
+            if strong:
+                css_class += " strong"
             return f"<td class='{css_class}'>{val}</td>"
         
         # Determine if teams are favorite or underdog today
@@ -318,6 +330,46 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
             except ValueError:
                 pass
         
+        # Check for poor underdog performance (warning signs)
+        # Underdog with Dog DIFF < -2 and CRI <= 45%
+        away_dog_warning = False
+        away_cri_warning = False
+        if away_is_dog and g.away.metrics:
+            dog_diff_val = g.away.metrics.get('DOG_DIFF')
+            cri_val = g.away.metrics.get('CRI', 0)
+            if dog_diff_val is not None and dog_diff_val < -2 and cri_val <= 0.45:
+                away_dog_warning = True
+                away_cri_warning = True
+        
+        home_dog_warning = False
+        home_cri_warning = False
+        if home_is_dog and g.home.metrics:
+            dog_diff_val = g.home.metrics.get('DOG_DIFF')
+            cri_val = g.home.metrics.get('CRI', 0)
+            if dog_diff_val is not None and dog_diff_val < -2 and cri_val <= 0.45:
+                home_dog_warning = True
+                home_cri_warning = True
+        
+        # Check for strong favorite performance (positive indicators)
+        # Favorite with Fav DIFF > +2 and CRI > 55%
+        away_fav_strong = False
+        away_cri_strong = False
+        if away_is_fav and g.away.metrics:
+            fav_diff_val = g.away.metrics.get('FAV_DIFF')
+            cri_val = g.away.metrics.get('CRI', 0)
+            if fav_diff_val is not None and fav_diff_val > 2 and cri_val > 0.55:
+                away_fav_strong = True
+                away_cri_strong = True
+        
+        home_fav_strong = False
+        home_cri_strong = False
+        if home_is_fav and g.home.metrics:
+            fav_diff_val = g.home.metrics.get('FAV_DIFF')
+            cri_val = g.home.metrics.get('CRI', 0)
+            if fav_diff_val is not None and fav_diff_val > 2 and cri_val > 0.55:
+                home_fav_strong = True
+                home_cri_strong = True
+        
         # Format team names with spread
         away_display = g.away.label
         if g.away.spread:
@@ -331,14 +383,14 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
             f"<td class='time'>{time_str}</td>",
             f"<td class='team-name'>{away_display}</td>",
             td_metric(away_total),
-            td_metric(away_fav, highlight=away_is_fav),
-            td_metric(away_dog, highlight=away_is_dog),
-            td_metric(away_cri),
+            td_metric(away_fav, highlight=away_is_fav, strong=away_fav_strong),
+            td_metric(away_dog, highlight=away_is_dog, warning=away_dog_warning),
+            td_metric(away_cri, warning=away_cri_warning, strong=away_cri_strong),
             f"<td class='team-name'>{home_display}</td>",
             td_metric(home_total),
-            td_metric(home_fav, highlight=home_is_fav),
-            td_metric(home_dog, highlight=home_is_dog),
-            td_metric(home_cri),
+            td_metric(home_fav, highlight=home_is_fav, strong=home_fav_strong),
+            td_metric(home_dog, highlight=home_is_dog, warning=home_dog_warning),
+            td_metric(home_cri, warning=home_cri_warning, strong=home_cri_strong),
         ]
 
         rows_html.append("<tr>" + "".join(row) + "</tr>")
@@ -436,6 +488,16 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
       td.metric.highlight {{
         background: #2a3f5f;
         font-weight: 600;
+      }}
+      td.metric.warning {{
+        background: #4a2020;
+        font-weight: 600;
+        color: #ff9999;
+      }}
+      td.metric.strong {{
+        background: #1a4a2a;
+        font-weight: 600;
+        color: #99ff99;
       }}
       .legend {{
         font-size: 0.85rem;
