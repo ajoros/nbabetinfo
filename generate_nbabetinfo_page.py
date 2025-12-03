@@ -44,7 +44,9 @@ TEAM_NAME_TO_SLUG: Dict[str, str] = {
     "Houston Rockets": "houston-rockets",
     "Indiana Pacers": "indiana-pacers",
     "Los Angeles Clippers": "los-angeles-clippers",
+    "LA Clippers": "los-angeles-clippers",  # NBA API uses "LA Clippers"
     "Los Angeles Lakers": "los-angeles-lakers",
+    "LA Lakers": "los-angeles-lakers",  # NBA API uses "LA Lakers"
     "Memphis Grizzlies": "memphis-grizzlies",
     "Miami Heat": "miami-heat",
     "Milwaukee Bucks": "milwaukee-bucks",
@@ -675,10 +677,22 @@ def main() -> None:
         print(f"Fetched spreads for {len(spreads)} teams")
         # Attach spreads to games
         for game in games:
-            if game.away.label in spreads:
-                game.away.spread = spreads[game.away.label]["spread"]
-            if game.home.label in spreads:
-                game.home.spread = spreads[game.home.label]["spread"]
+            # Try exact match first, then try alternate names (LA vs Los Angeles)
+            away_label = game.away.label
+            if away_label in spreads:
+                game.away.spread = spreads[away_label]["spread"]
+            elif away_label == "LA Clippers" and "Los Angeles Clippers" in spreads:
+                game.away.spread = spreads["Los Angeles Clippers"]["spread"]
+            elif away_label == "LA Lakers" and "Los Angeles Lakers" in spreads:
+                game.away.spread = spreads["Los Angeles Lakers"]["spread"]
+            
+            home_label = game.home.label
+            if home_label in spreads:
+                game.home.spread = spreads[home_label]["spread"]
+            elif home_label == "LA Clippers" and "Los Angeles Clippers" in spreads:
+                game.home.spread = spreads["Los Angeles Clippers"]["spread"]
+            elif home_label == "LA Lakers" and "Los Angeles Lakers" in spreads:
+                game.home.spread = spreads["Los Angeles Lakers"]["spread"]
 
     load_metrics_for_games(games, repo_root)
     
