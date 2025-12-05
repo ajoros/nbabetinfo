@@ -2,9 +2,8 @@ name: NBA Betting Info Page
 
 on:
   schedule:
-    # Run at midnight PT (8:00 UTC) and every 6 hours thereafter (14:00, 20:00, 2:00 UTC)
-    # Midnight PT = 8:00 UTC during PST, 7:00 UTC during PDT
-    - cron: '0 8,14,20,2 * * *'
+    # Run every hour to catch new games as soon as they're added to the NBA API
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 permissions:
