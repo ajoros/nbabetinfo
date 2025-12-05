@@ -66,7 +66,6 @@ TEAM_NAME_TO_SLUG: Dict[str, str] = {
 }
 
 
-NBA_SCOREBOARD_URL = "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json"
 TEAMRANKINGS_NBA_URL = "https://www.teamrankings.com/nba/"
 
 
@@ -86,160 +85,161 @@ class GameInfo:
     home: TeamInfo
 
 
-def fetch_todays_spreads() -> Dict[str, Dict[str, str]]:
-    """Fetch today's spreads from TeamRankings.com.
+def fetch_todays_games_from_teamrankings() -> List[GameInfo]:
+    """Fetch today's NBA games and spreads from TeamRankings.com sidebar.
     
-    Returns dict mapping team labels to their spread info:
-    {"Boston Celtics": {"spread": "-1.5", "is_home": True}, ...}
+    This scrapes the right sidebar which always shows the most current games.
     """
     if not HAS_BS4:
-        return {}
+        print("ERROR: BeautifulSoup required to fetch games", file=sys.stderr)
+        return []
     
     try:
         resp = requests.get(TEAMRANKINGS_NBA_URL, timeout=15)
         resp.raise_for_status()
     except Exception as e:
-        print(f"WARNING: Failed to fetch spreads from TeamRankings: {e}", file=sys.stderr)
-        return {}
+        print(f"ERROR: Failed to fetch games from TeamRankings: {e}", file=sys.stderr)
+        return []
     
     soup = BeautifulSoup(resp.text, 'html.parser')
-    spreads = {}
+    games: List[GameInfo] = []
+    
+    # Map short names to full names
+    team_name_map = {
+        "Washington": "Washington Wizards",
+        "Philadelphia": "Philadelphia 76ers",
+        "Portland": "Portland Trail Blazers",
+        "Toronto": "Toronto Raptors",
+        "Memphis": "Memphis Grizzlies",
+        "San Antonio": "San Antonio Spurs",
+        "New York": "New York Knicks",
+        "Boston": "Boston Celtics",
+        "Minnesota": "Minnesota Timberwolves",
+        "New Orleans": "New Orleans Pelicans",
+        "Okla City": "Oklahoma City Thunder",
+        "Oklahoma City": "Oklahoma City Thunder",
+        "Golden State": "Golden State Warriors",
+        "LA Clippers": "Los Angeles Clippers",
+        "LA Lakers": "Los Angeles Lakers",
+        "Denver": "Denver Nuggets",
+        "Indiana": "Indiana Pacers",
+        "Cleveland": "Cleveland Cavaliers",
+        "Orlando": "Orlando Magic",
+        "Charlotte": "Charlotte Hornets",
+        "Atlanta": "Atlanta Hawks",
+        "Sacramento": "Sacramento Kings",
+        "Houston": "Houston Rockets",
+        "Detroit": "Detroit Pistons",
+        "Milwaukee": "Milwaukee Bucks",
+        "Brooklyn": "Brooklyn Nets",
+        "Chicago": "Chicago Bulls",
+        "Miami": "Miami Heat",
+        "Dallas": "Dallas Mavericks",
+        "Phoenix": "Phoenix Suns",
+        "Utah": "Utah Jazz",
+    }
     
     # Find the matchups section in the right sidebar
-    matchup_links = soup.select('aside.right-sidebar table.tr-table a')
+    sidebar = soup.select_one('aside.right-sidebar')
+    if not sidebar:
+        print("ERROR: Could not find right sidebar on TeamRankings page", file=sys.stderr)
+        return []
     
-    for link in matchup_links:
-        text = link.get_text(strip=True)
-        # Examples:
-        # "Washington at Philadelphia (-13.5)"
-        # "Minnesota (-11.5) at New Orleans"
+    # Get all rows from the matchups table
+    rows = sidebar.select('table.tr-table tbody tr')
+    
+    import re
+    pt_tz = ZoneInfo("America/Los_Angeles")
+    today_pt = datetime.now(pt_tz)
+    
+    for idx, row in enumerate(rows):
+        link = row.select_one('a')
+        time_cell = row.select_one('td.text-right')
         
-        import re
-        # Pattern to extract teams and spread
-        # Look for "Team1 at Team2 (-X.X)" or "Team1 (-X.X) at Team2"
+        if not link or not time_cell:
+            continue
+        
+        text = link.get_text(strip=True)
+        time_str = time_cell.get_text(strip=True)
+        
+        # Parse matchup text
+        # Examples:
+        # "LA Lakers at Boston (-6.5)"
+        # "Denver (-6.5) at Atlanta"
         match = re.search(r'(.+?)\s+(?:\(([+-]?[\d.]+)\)\s+)?at\s+(.+?)(?:\s+\(([+-]?[\d.]+)\))?$', text)
         
-        if match:
-            away_team = match.group(1).strip()
-            away_spread = match.group(2)  # Could be None
-            home_team = match.group(3).strip()
-            home_spread = match.group(4)  # Could be None
-            
-            # Normalize team names to match our TEAM_NAME_TO_SLUG keys
-            # Map short names to full names
-            team_name_map = {
-                "Washington": "Washington Wizards",
-                "Philadelphia": "Philadelphia 76ers",
-                "Portland": "Portland Trail Blazers",
-                "Toronto": "Toronto Raptors",
-                "Memphis": "Memphis Grizzlies",
-                "San Antonio": "San Antonio Spurs",
-                "New York": "New York Knicks",
-                "Boston": "Boston Celtics",
-                "Minnesota": "Minnesota Timberwolves",
-                "New Orleans": "New Orleans Pelicans",
-                "Okla City": "Oklahoma City Thunder",
-                "Oklahoma City": "Oklahoma City Thunder",
-                "Golden State": "Golden State Warriors",
-                "LA Clippers": "Los Angeles Clippers",
-                "LA Lakers": "Los Angeles Lakers",
-                "Denver": "Denver Nuggets",
-                "Indiana": "Indiana Pacers",
-                "Cleveland": "Cleveland Cavaliers",
-                "Orlando": "Orlando Magic",
-                "Charlotte": "Charlotte Hornets",
-                "Atlanta": "Atlanta Hawks",
-                "Sacramento": "Sacramento Kings",
-                "Houston": "Houston Rockets",
-                "Detroit": "Detroit Pistons",
-                "Milwaukee": "Milwaukee Bucks",
-                "Brooklyn": "Brooklyn Nets",
-                "Chicago": "Chicago Bulls",
-                "Miami": "Miami Heat",
-                "Dallas": "Dallas Mavericks",
-                "Phoenix": "Phoenix Suns",
-                "Utah": "Utah Jazz",
-            }
-            
-            away_full = team_name_map.get(away_team, away_team)
-            home_full = team_name_map.get(home_team, home_team)
-            
-            # Determine spreads
-            if home_spread:
-                spreads[home_full] = {"spread": home_spread, "is_home": True}
-                # Calculate away spread (opposite)
-                try:
-                    away_val = -float(home_spread)
-                    spreads[away_full] = {"spread": f"{away_val:+.1f}", "is_home": False}
-                except ValueError:
-                    pass
-            elif away_spread:
-                spreads[away_full] = {"spread": away_spread, "is_home": False}
-                # Calculate home spread (opposite)
-                try:
-                    home_val = -float(away_spread)
-                    spreads[home_full] = {"spread": f"{home_val:+.1f}", "is_home": True}
-                except ValueError:
-                    pass
-    
-    return spreads
-
-
-def fetch_todays_games() -> List[GameInfo]:
-    """Fetch today's NBA games from the public NBA scoreboard API."""
-    try:
-        resp = requests.get(NBA_SCOREBOARD_URL, timeout=15)
-        resp.raise_for_status()
-    except Exception as e:
-        print(f"ERROR: Failed to fetch NBA scoreboard: {e}", file=sys.stderr)
-        return []
-
-    data = resp.json()
-    games_raw = data.get("scoreboard", {}).get("games", [])
-
-    games: List[GameInfo] = []
-    pt_tz = ZoneInfo("America/Los_Angeles")
-
-    for g in games_raw:
-        game_id = g.get("gameId") or g.get("gameId", "")
-        game_time_utc_str = g.get("gameTimeUTC")
-        if not game_time_utc_str:
-            # Skip games without a clear start time
+        if not match:
             continue
-
-        # Example format: "2025-11-29T03:00:00Z"
+        
+        away_team = match.group(1).strip()
+        away_spread_str = match.group(2)  # Could be None
+        home_team = match.group(3).strip()
+        home_spread_str = match.group(4)  # Could be None
+        
+        # Normalize team names
+        away_full = team_name_map.get(away_team, away_team)
+        home_full = team_name_map.get(home_team, home_team)
+        
+        # Get slugs
+        away_slug = TEAM_NAME_TO_SLUG.get(away_full)
+        home_slug = TEAM_NAME_TO_SLUG.get(home_full)
+        
+        # Parse spreads
+        away_spread = None
+        home_spread = None
+        
+        if home_spread_str:
+            home_spread = home_spread_str
+            try:
+                away_val = -float(home_spread_str)
+                away_spread = f"{away_val:+.1f}"
+            except ValueError:
+                pass
+        elif away_spread_str:
+            away_spread = away_spread_str
+            try:
+                home_val = -float(away_spread_str)
+                home_spread = f"{home_val:+.1f}"
+            except ValueError:
+                pass
+        
+        # Parse time (e.g. "7:00pm" or "7:30pm")
+        # Assume all times are in Eastern Time and convert to PT
         try:
-            if game_time_utc_str.endswith("Z"):
-                game_time_utc_str = game_time_utc_str.replace("Z", "+00:00")
-            dt_utc = datetime.fromisoformat(game_time_utc_str)
-            if dt_utc.tzinfo is None:
-                dt_utc = dt_utc.replace(tzinfo=timezone.utc)
+            time_match = re.search(r'(\d{1,2}):(\d{2})(am|pm)', time_str.lower())
+            if time_match:
+                hour = int(time_match.group(1))
+                minute = int(time_match.group(2))
+                am_pm = time_match.group(3)
+                
+                # Convert to 24-hour format
+                if am_pm == 'pm' and hour != 12:
+                    hour += 12
+                elif am_pm == 'am' and hour == 12:
+                    hour = 0
+                
+                # Create datetime in ET
+                et_tz = ZoneInfo("America/New_York")
+                dt_et = today_pt.astimezone(et_tz).replace(hour=hour, minute=minute, second=0, microsecond=0)
+                dt_pt = dt_et.astimezone(pt_tz)
+            else:
+                # Default time if parsing fails
+                dt_pt = today_pt.replace(hour=16, minute=0, second=0, microsecond=0)
         except Exception:
-            # Fallback: skip unparseable dates
-            continue
-
-        dt_pt = dt_utc.astimezone(pt_tz)
-
-        home_raw = g.get("homeTeam", {})
-        away_raw = g.get("awayTeam", {})
-
-        home_label = f"{home_raw.get('teamCity', '').strip()} {home_raw.get('teamName', '').strip()}".strip()
-        away_label = f"{away_raw.get('teamCity', '').strip()} {away_raw.get('teamName', '').strip()}".strip()
-
-        home_slug = TEAM_NAME_TO_SLUG.get(home_label)
-        away_slug = TEAM_NAME_TO_SLUG.get(away_label)
-
+            dt_pt = today_pt.replace(hour=16, minute=0, second=0, microsecond=0)
+        
         games.append(
             GameInfo(
-                game_id=str(game_id),
+                game_id=f"teamrankings_{idx}",
                 start_time_pt=dt_pt,
-                home=TeamInfo(label=home_label, slug=home_slug, metrics=None),
-                away=TeamInfo(label=away_label, slug=away_slug, metrics=None),
+                away=TeamInfo(label=away_full, slug=away_slug, metrics=None, spread=away_spread),
+                home=TeamInfo(label=home_full, slug=home_slug, metrics=None, spread=home_spread),
             )
         )
+    
+    return games
 
-    # Filter out games that are clearly missing team labels
-    return [g for g in games if g.home.label and g.away.label]
+
 
 
 def ensure_team_csv(slug: str, repo_root: Path) -> Path:
@@ -667,32 +667,12 @@ def render_html(games: List[GameInfo], output_path: Path, plot_files: dict) -> N
 def main() -> None:
     repo_root = Path(__file__).resolve().parent
 
-    games = fetch_todays_games()
+    # Fetch games and spreads directly from TeamRankings sidebar
+    games = fetch_todays_games_from_teamrankings()
     if not games:
         print("WARNING: No games fetched for today; still generating page with notice.", file=sys.stderr)
-
-    # Fetch today's spreads
-    spreads = fetch_todays_spreads()
-    if spreads:
-        print(f"Fetched spreads for {len(spreads)} teams")
-        # Attach spreads to games
-        for game in games:
-            # Try exact match first, then try alternate names (LA vs Los Angeles)
-            away_label = game.away.label
-            if away_label in spreads:
-                game.away.spread = spreads[away_label]["spread"]
-            elif away_label == "LA Clippers" and "Los Angeles Clippers" in spreads:
-                game.away.spread = spreads["Los Angeles Clippers"]["spread"]
-            elif away_label == "LA Lakers" and "Los Angeles Lakers" in spreads:
-                game.away.spread = spreads["Los Angeles Lakers"]["spread"]
-            
-            home_label = game.home.label
-            if home_label in spreads:
-                game.home.spread = spreads[home_label]["spread"]
-            elif home_label == "LA Clippers" and "Los Angeles Clippers" in spreads:
-                game.home.spread = spreads["Los Angeles Clippers"]["spread"]
-            elif home_label == "LA Lakers" and "Los Angeles Lakers" in spreads:
-                game.home.spread = spreads["Los Angeles Lakers"]["spread"]
+    else:
+        print(f"Fetched {len(games)} games from TeamRankings")
 
     load_metrics_for_games(games, repo_root)
     
