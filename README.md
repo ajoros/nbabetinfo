@@ -6,7 +6,7 @@
 
 `nbabetinfo` automatically generates a daily HTML page showing:
 
-- **Today's NBA schedule** with game times (Pacific Time) and current spreads from TeamRankings
+- **Today's NBA schedule** with game times (Pacific Time) and current spreads
 - **Role-specific performance metrics** for each team — how they perform as favorites vs. underdogs
 - **Visual performance charts** showing spread vs. actual margin trends over recent games
 - **Cover rate analysis** to identify consistent performers
@@ -18,18 +18,21 @@ The tool is designed to answer key betting questions:
 
 ## Data Sources
 
-### Game Schedule & Spreads
-- **NBA Official API** (`cdn.nba.com`) — Today's games and start times
-- **TeamRankings.com** — Current spread lines from the main NBA page
+All data is sourced from **TeamRankings.com**:
 
-### Historical Performance
-- **TeamRankings ATS Results** (`/nba/team/{team}/ats-results`) — Game-by-game spread performance including:
+### Today's Matchups & Current Spreads
+- **TeamRankings Main NBA Page** (`https://www.teamrankings.com/nba/`)
+- Scrapes the sidebar to get today's games, matchups, and current betting lines
+- Game times are converted from Eastern Time to Pacific Time
+
+### Historical Performance Data
+- **TeamRankings ATS Results Pages** (`/nba/team/{team}/ats-results`)
+- For each team playing today, the system scrapes their full season of game-by-game spread performance:
   - Date and opponent
   - Opening spread
   - Game result and margin
   - ATS differential (how many points they beat/missed the spread by)
-
-The scraper collects full-season data for all 30 teams daily, storing results in CSV format for metric calculation.
+- Data is stored in CSV files (`ats_results_{team-slug}.csv`) for metric calculation
 
 ## Betting Metrics Explained
 
@@ -109,22 +112,34 @@ For each team playing today:
 
 ## How It Works
 
-1. **Daily refresh** (automated via GitHub Actions):
-   - Fetch today's NBA schedule from official API
-   - Scrape current spreads from TeamRankings
-   - Update ATS results data for all 30 teams
+1. **Hourly automated refresh** (via GitHub Actions):
+   - Scrape today's NBA matchups and current spreads from TeamRankings sidebar
+   - For each team playing today, refresh their historical ATS performance data
+   - Store data in CSV files for processing
 
 2. **Metric calculation**:
-   - Calculate Total/Fav/Dog DIFF and CRI for each team
-   - Identify role-specific strengths and weaknesses
+   - Process historical game data to calculate betting metrics:
+     - **Total DIFF**: Overall spread performance across all games
+     - **Fav DIFF**: Performance when team is favored (negative spread)
+     - **Dog DIFF**: Performance as underdog (positive spread)  
+     - **CRI (Cover Rate Index)**: Percentage of games covering the spread
+   - These role-specific metrics identify situational betting value
 
 3. **Visualization**:
-   - Generate performance plots for teams playing today
-   - Build HTML dashboard with metrics table and charts
+   - Generate matplotlib charts for teams playing today showing:
+     - Spread vs. actual margin over time
+     - Game-by-game ATS differential (cover/miss magnitude)
+     - Cover rate visualization with season statistics
+   - Charts saved as PNG files in `plots/` directory
 
-4. **Publishing**:
-   - Deploy static HTML to GitHub Pages
-   - Accessible via web browser on any device
+4. **HTML generation & publishing**:
+   - Render static HTML page combining:
+     - Today's games with current spreads and start times
+     - Side-by-side metrics for away vs. home teams
+     - Color-coded indicators (blue = relevant role, green = strong, red = warning)
+     - Performance charts embedded for each team
+   - Deploy to GitHub Pages automatically
+   - Page updates every hour throughout the day
 
 ---
 
