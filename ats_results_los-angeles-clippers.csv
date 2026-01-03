@@ -1,14 +1,14 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
-10/22,away,Utah,27,-9.5,L,21,-30.5
-10/24,home,Phoenix,14,-10.0,W,27,17.0
+10/22,away,Utah,26,-9.5,L,21,-30.5
+10/24,home,Phoenix,13,-10.0,W,27,17.0
 10/26,home,Portland,20,-8.0,W,7,-1.0
-10/28,away,Golden State,10,-2.5,L,19,-21.5
+10/28,away,Golden State,12,-2.5,L,19,-21.5
 10/31,home,New Orleans,25,-11.0,W,2,-9.0
-11/03,home,Miami,12,-8.0,L,1,-9.0
+11/03,home,Miami,10,-8.0,L,1,-9.0
 11/04,home,Okla City,1,8.5,L,19,-10.5
-11/06,away,Phoenix,14,2.5,L,13,-10.5
-11/08,home,Phoenix,14,-4.5,L,11,-15.5
-11/10,home,Atlanta,17,-4.5,L,3,-7.5
+11/06,away,Phoenix,13,2.5,L,13,-10.5
+11/08,home,Phoenix,13,-4.5,L,11,-15.5
+11/10,home,Atlanta,16,-4.5,L,3,-7.5
 11/12,home,Denver,3,4.5,L,14,-9.5
 11/14,away,Dallas,22,-3.5,W,6,2.5
 11/16,away,Boston,7,5.5,L,3,2.5
@@ -16,19 +16,19 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 11/20,away,Orlando,11,6.5,L,28,-21.5
 11/22,away,Charlotte,24,1.5,W,15,16.5
 11/23,away,Cleveland,9,9.5,L,15,-5.5
-11/25,away,LA Lakers,13,6.5,L,17,-10.5
+11/25,away,LA Lakers,14,6.5,L,17,-10.5
 11/28,home,Memphis,19,-6.5,L,5,-11.5
 11/29,home,Dallas,22,-8.5,L,4,-12.5
-12/01,away,Miami,12,6.5,L,17,-10.5
-12/03,away,Atlanta,17,1.5,W,23,24.5
+12/01,away,Miami,10,6.5,L,17,-10.5
+12/03,away,Atlanta,16,1.5,W,23,24.5
 12/05,away,Memphis,19,-2.5,L,9,-11.5
 12/06,away,Minnesota,8,8.5,L,3,5.5
 12/11,away,Houston,2,8.5,L,2,6.5
 12/15,home,Memphis,19,-5.5,L,18,-23.5
 12/18,away,Okla City,1,17.5,L,21,-3.5
-12/20,home,LA Lakers,13,1.5,W,15,16.5
+12/20,home,LA Lakers,14,1.5,W,15,16.5
 12/23,home,Houston,2,7.5,W,20,27.5
 12/26,away,Portland,20,-2.5,W,16,13.5
 12/28,home,Detroit,6,3.5,W,13,16.5
-12/30,home,Sacramento,28,-10.5,W,41,30.5
-01/01,home,Utah,27,-13.5,W,17,3.5
+12/30,home,Sacramento,29,-10.5,W,41,30.5
+01/01,home,Utah,26,-13.5,W,17,3.5
