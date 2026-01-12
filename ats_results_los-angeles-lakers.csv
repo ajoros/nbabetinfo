@@ -8,7 +8,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 11/02,home,Miami,13,-5.0,W,10,5.0
 11/03,away,Portland,20,9.5,W,8,17.5
 11/05,home,San Antonio,4,1.5,W,2,3.5
-11/08,away,Atlanta,16,-5.5,L,20,-25.5
+11/08,away,Atlanta,15,-5.5,L,20,-25.5
 11/10,away,Charlotte,22,-8.5,W,10,1.5
 11/12,away,Okla City,1,8.5,L,29,-20.5
 11/14,away,New Orleans,27,-9.5,W,14,4.5
@@ -19,7 +19,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 11/28,home,Dallas,23,-9.5,W,10,0.5
 11/30,home,New Orleans,27,-15.5,W,12,-3.5
 12/01,home,Phoenix,11,-5.5,L,17,-22.5
-12/04,away,Toronto,15,2.5,W,3,5.5
+12/04,away,Toronto,16,2.5,W,3,5.5
 12/05,away,Boston,6,8.5,L,21,-12.5
 12/07,away,Philadelphia,14,-2.5,W,4,1.5
 12/10,home,San Antonio,4,-7.5,L,13,-20.5
