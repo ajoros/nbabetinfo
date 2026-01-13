@@ -2,7 +2,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 10/21,away,Okla City,1,6.5,L,1,5.5
 10/24,home,Detroit,5,-6.5,L,4,-10.5
 10/27,home,Brooklyn,26,-16.0,W,28,12.0
-10/29,away,Toronto,15,-5.5,W,18,12.5
+10/29,away,Toronto,16,-5.5,W,18,12.5
 11/01,away,Boston,6,-4.5,W,27,22.5
 11/03,home,Dallas,23,-12.0,W,8,-4.0
 11/05,away,Memphis,19,-7.5,W,15,7.5
@@ -34,3 +34,4 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 01/05,home,Phoenix,11,-8.5,W,3,-5.5
 01/07,away,Portland,20,-7.5,L,1,-8.5
 01/09,away,Portland,20,-6.5,L,6,-12.5
+01/11,away,Sacramento,29,-14.5,L,13,-27.5
