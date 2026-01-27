@@ -1,48 +1,48 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 10/22,away,Phoenix,11,3.5,L,4,-0.5
-10/24,home,Utah,29,-5.5,W,1,-4.5
-10/26,home,LA Lakers,15,-3.5,L,7,-10.5
+10/24,home,Utah,28,-5.5,W,1,-4.5
+10/26,home,LA Lakers,16,-3.5,L,7,-10.5
 10/28,away,Okla City,1,10.5,L,6,4.5
 10/29,away,Chicago,24,4.5,L,13,-8.5
 11/01,away,Milwaukee,23,6.5,W,2,8.5
 11/03,away,Denver,6,11.5,L,6,5.5
-11/05,home,Golden State,10,-2.5,W,5,2.5
+11/05,home,Golden State,9,-2.5,W,5,2.5
 11/07,home,Okla City,1,11.5,L,31,-19.5
-11/09,home,Minnesota,7,4.5,L,27,-22.5
+11/09,home,Minnesota,8,4.5,L,27,-22.5
 11/11,home,Denver,6,8.5,L,14,-5.5
 11/12,home,Atlanta,18,4.5,L,33,-28.5
-11/14,away,Minnesota,7,11.5,L,14,-2.5
-11/16,away,San Antonio,4,5.5,L,13,-7.5
+11/14,away,Minnesota,8,11.5,L,14,-2.5
+11/16,away,San Antonio,5,5.5,L,13,-7.5
 11/19,away,Okla City,1,18.5,L,14,4.5
 11/20,away,Memphis,20,3.5,L,41,-37.5
 11/22,away,Denver,6,10.5,W,5,15.5
-11/24,home,Minnesota,7,10.5,W,5,15.5
+11/24,home,Minnesota,8,10.5,W,5,15.5
 11/26,home,Phoenix,11,4.5,L,12,-7.5
-11/28,away,Utah,29,2.5,L,9,-6.5
+11/28,away,Utah,28,2.5,L,9,-6.5
 11/30,home,Memphis,20,3.5,L,8,-4.5
 12/03,away,Houston,2,15.5,L,26,-10.5
 12/06,away,Miami,12,8.5,W,16,24.5
 12/08,away,Indiana,26,3.5,L,11,-7.5
 12/11,home,Denver,6,10.5,L,31,-20.5
-12/14,away,Minnesota,7,9.5,L,14,-4.5
+12/14,away,Minnesota,8,9.5,L,14,-4.5
 12/18,away,Portland,19,8.5,L,1,7.5
 12/20,home,Portland,19,4.5,L,5,-0.5
 12/21,home,Houston,2,12.5,W,1,13.5
 12/23,home,Detroit,3,9.5,L,9,0.5
 12/27,home,Dallas,22,2.5,W,6,8.5
-12/28,away,LA Lakers,15,12.5,L,24,-11.5
-12/30,away,LA Clippers,17,10.5,L,41,-30.5
-01/01,home,Boston,5,10.5,L,14,-3.5
+12/28,away,LA Lakers,16,12.5,L,24,-11.5
+12/30,away,LA Clippers,15,10.5,L,41,-30.5
+01/01,home,Boston,4,10.5,L,14,-3.5
 01/02,away,Phoenix,11,13.5,L,27,-13.5
 01/04,home,Milwaukee,23,6.5,L,17,-10.5
 01/06,home,Dallas,22,4.5,L,2,2.5
-01/09,away,Golden State,10,14.5,L,34,-19.5
+01/09,away,Golden State,9,14.5,L,34,-19.5
 01/11,home,Houston,2,14.5,W,13,27.5
-01/12,home,LA Lakers,15,9.5,W,12,21.5
-01/14,home,New York,8,10.5,W,11,21.5
+01/12,home,LA Lakers,16,9.5,W,12,21.5
+01/14,home,New York,7,10.5,W,11,21.5
 01/16,home,Washington,30,-7.5,W,13,5.5
 01/18,home,Portland,19,1.5,L,7,-5.5
 01/20,home,Miami,12,4.5,L,13,-8.5
 01/21,home,Toronto,13,5.5,L,13,-7.5
-01/23,away,Cleveland,9,12.5,L,5,7.5
+01/23,away,Cleveland,10,12.5,L,5,7.5
 01/25,away,Detroit,3,12.5,L,23,-10.5
