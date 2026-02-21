@@ -1,25 +1,25 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 10/22,home,Cleveland,7,1.5,W,8,9.5
-10/24,home,Boston,5,-4.0,W,10,6.0
-10/26,away,Miami,11,-3.5,L,8,-11.5
+10/24,home,Boston,4,-4.0,W,10,6.0
+10/26,away,Miami,10,-3.5,L,8,-11.5
 10/28,away,Milwaukee,22,-1.5,L,10,-11.5
 10/31,away,Chicago,24,-5.0,L,10,-15.0
 11/02,home,Chicago,24,-8.0,W,12,4.0
 11/03,home,Washington,30,-13.0,W,17,4.0
-11/05,home,Minnesota,8,-3.5,W,23,19.5
+11/05,home,Minnesota,9,-3.5,W,23,19.5
 11/09,home,Brooklyn,28,-15.5,W,36,20.5
-11/11,home,Memphis,21,-9.5,W,13,3.5
+11/11,home,Memphis,20,-9.5,W,13,3.5
 11/12,home,Orlando,14,-3.5,L,17,-20.5
-11/14,home,Miami,11,-6.5,W,8,1.5
-11/17,away,Miami,11,1.5,L,2,-0.5
+11/14,home,Miami,10,-6.5,W,8,1.5
+11/17,away,Miami,10,1.5,L,2,-0.5
 11/19,away,Dallas,23,-8.5,W,2,-6.5
 11/22,away,Orlando,14,1.5,L,12,-10.5
 11/24,away,Brooklyn,28,-12.5,W,13,0.5
-11/26,away,Charlotte,19,-6.5,W,28,21.5
+11/26,away,Charlotte,18,-6.5,W,28,21.5
 11/28,home,Milwaukee,22,-7.5,W,9,1.5
 11/30,home,Toronto,13,-8.5,W,22,13.5
-12/02,away,Boston,5,-1.5,L,6,-7.5
-12/03,home,Charlotte,19,-9.5,W,15,5.5
+12/02,away,Boston,4,-1.5,L,6,-7.5
+12/03,home,Charlotte,18,-9.5,W,15,5.5
 12/05,home,Utah,27,-15.5,W,34,18.5
 12/07,home,Orlando,14,-1.5,W,6,4.5
 12/09,away,Toronto,13,-6.5,W,16,9.5
@@ -27,32 +27,32 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 12/16,neutral,San Antonio,3,-2.5,W,11,8.5
 12/18,away,Indiana,26,-3.5,W,1,-2.5
 12/19,home,Philadelphia,17,-6.5,L,9,-15.5
-12/21,home,Miami,11,-7.5,W,7,-0.5
-12/23,away,Minnesota,8,7.5,L,11,-3.5
+12/21,home,Miami,10,-7.5,W,7,-0.5
+12/23,away,Minnesota,9,7.5,L,11,-3.5
 12/25,home,Cleveland,7,-4.5,W,2,-2.5
-12/27,away,Atlanta,18,-6.5,W,3,-3.5
+12/27,away,Atlanta,19,-6.5,W,3,-3.5
 12/29,away,New Orleans,25,-8.5,W,5,-3.5
 12/31,away,San Antonio,3,3.5,L,2,1.5
-01/02,home,Atlanta,18,-4.5,L,12,-16.5
+01/02,home,Atlanta,19,-4.5,L,12,-16.5
 01/03,home,Philadelphia,17,-3.5,L,11,-14.5
 01/05,away,Detroit,2,-1.5,L,31,-32.5
 01/07,home,LA Clippers,15,-5.5,W,12,6.5
 01/09,away,Phoenix,12,-1.5,L,5,-6.5
-01/11,away,Portland,20,-5.5,W,9,3.5
+01/11,away,Portland,21,-5.5,W,9,3.5
 01/14,away,Sacramento,29,-10.5,L,11,-21.5
-01/15,away,Golden State,10,7.5,L,13,-5.5
+01/15,away,Golden State,11,7.5,L,13,-5.5
 01/17,home,Phoenix,12,-1.5,L,7,-8.5
 01/19,home,Dallas,23,-12.5,L,17,-29.5
 01/21,home,Brooklyn,28,-11.5,W,54,42.5
 01/24,away,Philadelphia,17,1.5,W,3,4.5
 01/27,home,Sacramento,29,-14.5,W,16,1.5
 01/28,away,Toronto,13,1.5,W,27,28.5
-01/30,home,Portland,20,-6.5,W,30,23.5
+01/30,home,Portland,21,-6.5,W,30,23.5
 02/01,home,LA Lakers,16,-6.5,W,12,5.5
 02/03,away,Washington,30,-12.5,W,31,18.5
-02/04,home,Denver,9,-4.5,W,7,2.5
+02/04,home,Denver,8,-4.5,W,7,2.5
 02/06,away,Detroit,2,5.5,L,38,-32.5
-02/08,away,Boston,5,3.5,W,22,25.5
+02/08,away,Boston,4,3.5,W,22,25.5
 02/10,home,Indiana,26,-11.5,L,3,-14.5
 02/11,away,Philadelphia,17,-2.5,W,49,46.5
 02/19,home,Detroit,2,-3.5,L,15,-18.5
