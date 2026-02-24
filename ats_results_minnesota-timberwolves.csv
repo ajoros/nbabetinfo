@@ -1,10 +1,10 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
-10/22,away,Portland,21,-4.5,W,4,-0.5
+10/22,away,Portland,20,-4.5,W,4,-0.5
 10/24,away,LA Lakers,16,-1.5,L,18,-19.5
 10/26,home,Indiana,26,-12.0,W,4,-8.0
 10/27,home,Denver,8,6.0,L,13,-7.0
 10/29,home,LA Lakers,16,-7.5,L,1,-8.5
-11/01,away,Charlotte,17,-4.5,W,17,12.5
+11/01,away,Charlotte,18,-4.5,W,17,12.5
 11/03,away,Brooklyn,28,-10.0,W,16,6.0
 11/05,away,New York,6,3.5,L,23,-19.5
 11/07,home,Utah,27,-12.5,W,40,27.5
@@ -14,7 +14,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 11/15,home,Denver,8,1.5,L,11,-9.5
 11/17,home,Dallas,23,-14.5,W,24,9.5
 11/19,home,Washington,30,-16.5,W,11,-5.5
-11/21,away,Phoenix,12,-4.5,L,1,-5.5
+11/21,away,Phoenix,14,-4.5,L,1,-5.5
 11/24,away,Sacramento,29,-10.5,L,5,-15.5
 11/26,away,Okla City,1,10.5,L,8,2.5
 11/29,home,Boston,4,-5.5,W,4,-1.5
@@ -22,10 +22,10 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 12/02,away,New Orleans,25,-12.5,W,7,-5.5
 12/04,away,New Orleans,25,-12.5,W,9,-3.5
 12/06,home,LA Clippers,15,-8.5,W,3,-5.5
-12/08,home,Phoenix,12,-8.5,L,3,-11.5
+12/08,home,Phoenix,14,-8.5,L,3,-11.5
 12/12,away,Golden State,11,5.5,W,7,12.5
 12/14,home,Sacramento,29,-9.5,W,14,4.5
-12/17,home,Memphis,20,-6.5,L,6,-12.5
+12/17,home,Memphis,21,-6.5,L,6,-12.5
 12/19,home,Okla City,1,5.5,W,5,10.5
 12/21,home,Milwaukee,22,-11.5,W,3,-8.5
 12/23,home,New York,6,-7.5,W,11,3.5
@@ -48,12 +48,12 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 01/26,home,Golden State,11,-8.5,W,25,16.5
 01/28,away,Dallas,23,-8.5,W,13,4.5
 01/29,home,Okla City,1,5.5,W,12,17.5
-01/31,away,Memphis,20,-11.5,W,17,5.5
-02/02,away,Memphis,20,-7.5,L,9,-16.5
-02/04,away,Toronto,13,-2.5,W,2,-0.5
+01/31,away,Memphis,21,-11.5,W,17,5.5
+02/02,away,Memphis,21,-7.5,L,9,-16.5
+02/04,away,Toronto,12,-2.5,W,2,-0.5
 02/06,home,New Orleans,25,-8.5,L,4,-12.5
 02/08,home,LA Clippers,15,-8.5,L,19,-27.5
 02/09,home,Atlanta,19,-8.5,W,22,13.5
-02/11,home,Portland,21,-5.5,W,24,18.5
+02/11,home,Portland,20,-5.5,W,24,18.5
 02/20,home,Dallas,23,-14.5,W,11,-3.5
-02/22,home,Philadelphia,18,-8.5,L,27,-35.5
+02/22,home,Philadelphia,17,-8.5,L,27,-35.5
