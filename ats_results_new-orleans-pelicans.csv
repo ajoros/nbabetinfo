@@ -5,12 +5,12 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 10/29,away,Denver,8,12.5,L,34,-21.5
 10/31,away,LA Clippers,13,11.0,L,2,9.0
 11/02,away,Okla City,1,13.0,L,31,-18.0
-11/04,home,Charlotte,14,-3.5,W,4,0.5
+11/04,home,Charlotte,15,-3.5,W,4,0.5
 11/05,away,Dallas,24,8.5,W,2,10.5
 11/08,away,San Antonio,2,10.5,L,7,3.5
 11/10,away,Phoenix,18,8.5,L,23,-14.5
 11/12,home,Portland,20,8.5,L,8,0.5
-11/14,home,LA Lakers,15,9.5,L,14,-4.5
+11/14,home,LA Lakers,14,9.5,L,14,-4.5
 11/16,home,Golden State,12,10.5,L,18,-7.5
 11/17,home,Okla City,1,18.5,L,17,1.5
 11/19,home,Denver,8,11.5,L,7,4.5
@@ -19,7 +19,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 11/24,home,Chicago,23,4.5,W,13,17.5
 11/26,home,Memphis,21,3.5,L,5,-1.5
 11/29,away,Golden State,12,9.5,L,8,1.5
-11/30,away,LA Lakers,15,15.5,L,12,3.5
+11/30,away,LA Lakers,14,15.5,L,12,3.5
 12/02,home,Minnesota,9,12.5,L,7,5.5
 12/04,home,Minnesota,9,12.5,L,9,3.5
 12/06,away,Brooklyn,29,3.5,L,18,-14.5
@@ -36,7 +36,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 12/31,away,Chicago,23,1.5,L,16,-14.5
 01/02,home,Portland,20,3.5,L,13,-9.5
 01/04,away,Miami,10,7.5,L,19,-11.5
-01/06,home,LA Lakers,15,5.5,L,8,-2.5
+01/06,home,LA Lakers,14,5.5,L,8,-2.5
 01/07,away,Atlanta,17,10.5,L,17,-6.5
 01/09,away,Washington,30,-3.5,W,21,17.5
 01/11,away,Orlando,11,7.5,L,10,-2.5
@@ -50,7 +50,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 01/27,away,Okla City,1,14.5,L,9,5.5
 01/30,home,Memphis,21,-3.5,W,8,4.5
 01/31,away,Philadelphia,19,6.5,L,10,-3.5
-02/02,away,Charlotte,14,6.5,L,7,-0.5
+02/02,away,Charlotte,15,6.5,L,7,-0.5
 02/04,away,Milwaukee,22,-4.5,L,4,-8.5
 02/06,away,Minnesota,9,8.5,W,4,12.5
 02/09,home,Sacramento,28,-9.5,W,26,16.5
@@ -61,7 +61,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 02/26,away,Utah,26,-6.5,W,11,4.5
 02/28,away,Utah,26,-5.5,W,10,4.5
 03/01,away,LA Clippers,13,8.5,L,20,-11.5
-03/03,away,LA Lakers,15,8.5,L,9,-0.5
+03/03,away,LA Lakers,14,8.5,L,9,-0.5
 03/05,away,Sacramento,28,-6.5,W,10,3.5
 03/06,away,Phoenix,18,3.5,L,2,1.5
 03/08,home,Washington,30,-11.5,W,20,8.5
