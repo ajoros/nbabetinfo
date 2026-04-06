@@ -6,7 +6,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 10/30,home,Miami,14,-5.5,W,6,0.5
 11/02,away,Phoenix,16,-5.0,L,12,-17.0
 11/05,away,LA Lakers,12,-1.5,L,2,-3.5
-11/07,home,Houston,6,4.5,W,11,15.5
+11/07,home,Houston,7,4.5,W,11,15.5
 11/08,home,New Orleans,22,-10.5,W,7,-3.5
 11/10,away,Chicago,23,-5.5,W,4,-1.5
 11/12,home,Golden State,17,-3.5,L,5,-8.5
@@ -16,7 +16,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 11/20,home,Atlanta,11,-1.5,W,9,7.5
 11/23,away,Phoenix,16,3.5,L,9,-5.5
 11/26,away,Portland,20,1.5,W,13,14.5
-11/28,away,Denver,7,7.5,W,3,10.5
+11/28,away,Denver,6,7.5,W,3,10.5
 11/30,away,Minnesota,9,4.5,L,13,-8.5
 12/02,home,Memphis,21,-5.5,W,7,1.5
 12/03,away,Orlando,18,8.5,W,2,10.5
@@ -43,10 +43,10 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 01/15,home,Milwaukee,25,-7.5,W,18,10.5
 01/17,home,Minnesota,9,-4.5,W,3,-1.5
 01/19,home,Utah,27,-16.5,W,13,-3.5
-01/20,away,Houston,6,4.5,L,5,-0.5
+01/20,away,Houston,7,4.5,L,5,-0.5
 01/22,away,Utah,27,-12.5,W,17,4.5
 01/25,home,New Orleans,22,-11.5,L,9,-20.5
-01/28,away,Houston,6,2.5,W,12,14.5
+01/28,away,Houston,7,2.5,W,12,14.5
 01/31,away,Charlotte,10,-3.5,L,5,-8.5
 02/01,home,Orlando,18,-4.5,W,9,4.5
 02/04,home,Okla City,1,-9.5,W,10,0.5
@@ -63,9 +63,9 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 03/03,away,Philadelphia,19,-7.5,W,40,32.5
 03/05,home,Detroit,3,-2.5,W,15,12.5
 03/06,home,LA Clippers,15,-6.5,W,4,-2.5
-03/08,home,Houston,6,-5.5,W,25,19.5
+03/08,home,Houston,7,-5.5,W,25,19.5
 03/10,home,Boston,4,-3.5,W,9,5.5
-03/12,home,Denver,7,-3.5,L,5,-8.5
+03/12,home,Denver,6,-3.5,L,5,-8.5
 03/14,home,Charlotte,10,-6.5,W,13,6.5
 03/16,away,LA Clippers,15,-8.5,W,4,-4.5
 03/17,away,Sacramento,28,-13.5,W,28,14.5
@@ -77,4 +77,4 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 03/30,home,Chicago,23,-17.5,W,15,-2.5
 04/01,away,Golden State,17,-14.5,W,14,-0.5
 04/02,away,LA Clippers,15,2.5,W,19,21.5
-04/04,away,Denver,7,-1.5,L,2,-3.5
+04/04,away,Denver,6,-1.5,L,2,-3.5
