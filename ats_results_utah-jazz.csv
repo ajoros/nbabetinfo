@@ -11,23 +11,23 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 11/10,home,Minnesota,9,7.5,L,7,0.5
 11/11,home,Indiana,26,2.5,W,24,26.5
 11/13,home,Atlanta,11,1.5,L,10,-8.5
-11/16,home,Chicago,23,4.5,W,3,7.5
+11/16,home,Chicago,22,4.5,W,3,7.5
 11/18,away,LA Lakers,13,13.5,L,14,-0.5
 11/21,home,Okla City,1,16.5,L,32,-15.5
 11/23,home,LA Lakers,13,9.5,L,2,7.5
 11/24,away,Golden State,18,13.5,L,17,-3.5
 11/28,home,Sacramento,28,-2.5,W,9,6.5
-11/30,home,Houston,6,11.5,L,28,-16.5
-12/01,home,Houston,6,11.5,W,8,19.5
+11/30,home,Houston,7,11.5,L,28,-16.5
+12/01,home,Houston,7,11.5,W,8,19.5
 12/04,away,Brooklyn,29,-5.5,W,13,7.5
 12/05,away,New York,5,15.5,L,34,-18.5
 12/07,home,Okla City,1,11.5,L,30,-18.5
-12/12,away,Memphis,22,7.5,W,4,11.5
+12/12,away,Memphis,23,7.5,W,4,11.5
 12/15,home,Dallas,24,1.5,W,7,8.5
 12/18,home,LA Lakers,13,9.5,L,8,1.5
 12/20,home,Orlando,17,7.5,L,1,6.5
-12/22,away,Denver,7,12.5,L,23,-10.5
-12/23,home,Memphis,22,4.5,L,9,-4.5
+12/22,away,Denver,6,12.5,L,23,-10.5
+12/23,home,Memphis,23,4.5,L,9,-4.5
 12/26,home,Detroit,3,9.5,W,2,11.5
 12/27,away,San Antonio,2,14.5,W,13,27.5
 12/30,home,Boston,4,8.5,L,10,-1.5
@@ -38,7 +38,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 01/08,home,Dallas,24,4.5,W,2,6.5
 01/10,home,Charlotte,10,5.5,L,55,-49.5
 01/12,away,Cleveland,8,13.5,W,11,24.5
-01/14,away,Chicago,23,5.5,L,2,3.5
+01/14,away,Chicago,22,5.5,L,2,3.5
 01/15,away,Dallas,24,2.5,L,22,-19.5
 01/17,away,Dallas,24,2.5,L,18,-15.5
 01/19,away,San Antonio,2,16.5,L,13,3.5
@@ -55,11 +55,11 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 02/09,away,Miami,15,6.5,W,4,10.5
 02/11,home,Sacramento,28,-5.5,W,28,22.5
 02/12,home,Portland,20,6.5,L,16,-9.5
-02/20,away,Memphis,22,2.5,L,9,-6.5
-02/23,away,Houston,6,13.5,L,20,-6.5
+02/20,away,Memphis,23,2.5,L,9,-6.5
+02/23,away,Houston,7,13.5,L,20,-6.5
 02/26,home,New Orleans,21,6.5,L,11,-4.5
 02/28,home,New Orleans,21,5.5,L,10,-4.5
-03/02,home,Denver,7,11.5,L,3,8.5
+03/02,home,Denver,6,11.5,L,3,8.5
 03/04,away,Philadelphia,19,7.5,L,4,3.5
 03/05,away,Washington,30,3.5,W,10,13.5
 03/07,away,Milwaukee,25,9.5,L,14,-4.5
@@ -72,10 +72,11 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 03/21,home,Philadelphia,19,5.5,L,10,-4.5
 03/23,home,Toronto,12,10.5,L,16,-5.5
 03/25,home,Washington,30,-3.5,L,23,-26.5
-03/27,away,Denver,7,19.5,L,6,13.5
+03/27,away,Denver,6,19.5,L,6,13.5
 03/28,away,Phoenix,16,17.5,L,25,-7.5
 03/30,home,Cleveland,8,16.5,L,9,7.5
-04/01,home,Denver,7,17.5,L,13,4.5
-04/03,away,Houston,6,17.5,L,34,-16.5
+04/01,home,Denver,6,17.5,L,13,4.5
+04/03,away,Houston,7,17.5,L,34,-16.5
 04/05,away,Okla City,1,23.5,L,35,-11.5
 04/07,away,New Orleans,21,10.5,L,19,-8.5
+04/10,home,Memphis,23,-4.5,W,46,41.5

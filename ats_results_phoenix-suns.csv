@@ -1,9 +1,9 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 10/22,home,Sacramento,28,-3.5,W,4,0.5
 10/24,away,LA Clippers,14,10.0,L,27,-17.0
-10/25,away,Denver,7,13.0,L,22,-9.0
+10/25,away,Denver,6,13.0,L,22,-9.0
 10/27,away,Utah,27,1.5,L,4,-2.5
-10/29,home,Memphis,22,2.0,L,1,1.0
+10/29,home,Memphis,23,2.0,L,1,1.0
 10/31,home,Utah,27,-3.0,W,22,19.0
 11/02,home,San Antonio,2,5.0,W,12,17.0
 11/04,away,Golden State,18,10.5,L,11,-0.5
@@ -16,12 +16,12 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 11/18,away,Portland,20,2.5,W,17,19.5
 11/21,home,Minnesota,9,4.5,W,1,5.5
 11/23,home,San Antonio,2,-3.5,W,9,5.5
-11/24,home,Houston,6,6.5,L,22,-15.5
+11/24,home,Houston,7,6.5,L,22,-15.5
 11/26,away,Sacramento,28,-4.5,W,12,7.5
 11/28,away,Okla City,1,14.5,L,4,10.5
-11/29,home,Denver,7,3.5,L,18,-14.5
+11/29,home,Denver,6,3.5,L,18,-14.5
 12/01,away,LA Lakers,13,5.5,W,17,22.5
-12/05,away,Houston,6,9.5,L,19,-9.5
+12/05,away,Houston,7,9.5,L,19,-9.5
 12/08,away,Minnesota,9,8.5,W,3,11.5
 12/10,away,Okla City,1,15.5,L,49,-33.5
 12/14,home,LA Lakers,13,-1.5,L,2,-3.5
@@ -34,8 +34,8 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 12/31,away,Cleveland,8,6.5,L,16,-9.5
 01/02,home,Sacramento,28,-13.5,W,27,13.5
 01/04,home,Okla City,1,10.5,W,3,13.5
-01/05,away,Houston,6,8.5,L,3,5.5
-01/07,away,Memphis,22,-5.5,W,19,13.5
+01/05,away,Houston,7,8.5,L,3,5.5
+01/07,away,Memphis,23,-5.5,W,19,13.5
 01/09,home,New York,5,1.5,W,5,6.5
 01/11,home,Washington,30,-14.5,W,19,4.5
 01/13,away,Miami,15,1.5,L,6,-4.5
@@ -60,7 +60,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 02/24,home,Boston,4,5.5,L,16,-10.5
 02/26,home,LA Lakers,13,5.5,W,3,8.5
 03/03,away,Sacramento,28,-9.5,W,11,1.5
-03/05,home,Chicago,23,-10.5,L,2,-12.5
+03/05,home,Chicago,22,-10.5,L,2,-12.5
 03/06,home,New Orleans,21,-3.5,W,2,-1.5
 03/08,home,Charlotte,10,4.5,W,12,16.5
 03/10,away,Milwaukee,25,-2.5,W,15,12.5
@@ -71,11 +71,11 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 03/19,away,San Antonio,2,9.5,L,1,8.5
 03/21,home,Milwaukee,25,-11.5,L,3,-14.5
 03/22,home,Toronto,12,4.5,W,22,26.5
-03/24,home,Denver,7,5.5,L,2,3.5
+03/24,home,Denver,6,5.5,L,2,3.5
 03/28,home,Utah,27,-17.5,W,25,7.5
-03/30,away,Memphis,22,-12.5,W,26,13.5
+03/30,away,Memphis,23,-12.5,W,26,13.5
 03/31,away,Orlando,17,2.5,L,4,-1.5
 04/02,away,Charlotte,10,6.5,L,20,-13.5
-04/05,away,Chicago,23,-10.5,W,10,-0.5
-04/07,home,Houston,6,1.5,L,14,-12.5
+04/05,away,Chicago,22,-10.5,W,10,-0.5
+04/07,home,Houston,7,1.5,L,14,-12.5
 04/08,home,Dallas,24,-12.5,W,5,-7.5
