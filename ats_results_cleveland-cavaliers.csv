@@ -14,7 +14,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 11/13,home,Toronto,12,-7.5,L,13,-20.5
 11/15,home,Memphis,24,-10.5,W,8,-2.5
 11/17,home,Milwaukee,25,-5.5,W,12,6.5
-11/19,home,Houston,6,1.5,L,10,-8.5
+11/19,home,Houston,7,1.5,L,10,-8.5
 11/21,home,Indiana,26,-13.5,W,11,-2.5
 11/23,home,LA Clippers,16,-9.5,W,15,5.5
 11/24,away,Toronto,12,1.5,L,11,-9.5
@@ -31,10 +31,10 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 12/22,home,Charlotte,10,-9.5,W,7,-2.5
 12/23,home,New Orleans,21,-9.5,W,23,13.5
 12/25,away,New York,4,4.5,L,2,2.5
-12/27,away,Houston,6,2.5,L,17,-14.5
+12/27,away,Houston,7,2.5,L,17,-14.5
 12/29,away,San Antonio,2,3.5,W,12,15.5
 12/31,home,Phoenix,17,-6.5,W,16,9.5
-01/02,home,Denver,7,-13.5,W,5,-8.5
+01/02,home,Denver,6,-13.5,W,5,-8.5
 01/04,home,Detroit,3,-2.5,L,4,-6.5
 01/06,away,Indiana,26,-6.5,W,4,-2.5
 01/08,away,Minnesota,9,2.5,L,9,-6.5
@@ -52,7 +52,7 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 02/01,away,Portland,20,-3.5,W,19,15.5
 02/04,away,LA Clippers,16,-2.5,W,33,30.5
 02/07,away,Sacramento,28,-13.5,W,6,-7.5
-02/09,away,Denver,7,2.5,W,2,4.5
+02/09,away,Denver,6,2.5,W,2,4.5
 02/11,home,Washington,30,-17.5,W,25,7.5
 02/19,home,Brooklyn,29,-15.5,W,28,12.5
 02/20,away,Charlotte,10,-5.5,W,5,-0.5
@@ -86,3 +86,4 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 04/23,away,Toronto,12,-2.5,L,22,-24.5
 04/26,away,Toronto,12,-4.5,L,4,-8.5
 04/29,home,Toronto,12,-9.5,W,5,-4.5
+05/01,away,Toronto,12,-4.5,L,2,-6.5
