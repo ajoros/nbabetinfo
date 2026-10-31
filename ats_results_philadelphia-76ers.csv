@@ -1,6 +1,7 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 10/20,away,New York,9,4.5,W,6,10.5
-10/22,home,Cleveland,12,-2.5,W,8,5.5
+10/22,home,Cleveland,11,-2.5,W,8,5.5
 10/24,home,Milwaukee,29,-13.5,W,11,-2.5
-10/25,home,Detroit,6,1.5,L,13,-11.5
-10/28,away,Indiana,15,-7.5,W,5,-2.5
+10/25,home,Detroit,5,1.5,L,13,-11.5
+10/28,away,Indiana,20,-7.5,W,5,-2.5
+10/30,home,New York,9,3.5,W,5,8.5
