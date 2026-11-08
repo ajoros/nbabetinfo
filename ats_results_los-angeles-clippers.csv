@@ -1,8 +1,9 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 10/21,home,Sacramento,30,-5.5,W,25,19.5
-10/23,away,LA Lakers,10,8.5,L,8,0.5
-10/25,away,Okla City,3,16.5,L,7,9.5
-10/28,home,LA Lakers,10,-1.5,L,16,-17.5
-10/30,away,Minnesota,4,6.5,L,26,-19.5
-11/01,away,Golden State,16,1.5,L,12,-10.5
-11/02,home,Toronto,8,6.5,L,7,-0.5
+10/23,away,LA Lakers,9,8.5,L,8,0.5
+10/25,away,Okla City,1,16.5,L,7,9.5
+10/28,home,LA Lakers,9,-1.5,L,16,-17.5
+10/30,away,Minnesota,3,6.5,L,26,-19.5
+11/01,away,Golden State,15,1.5,L,12,-10.5
+11/02,home,Toronto,11,6.5,L,7,-0.5
+11/04,home,Miami,18,6.5,L,1,5.5
