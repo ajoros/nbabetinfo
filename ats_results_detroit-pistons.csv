@@ -1,9 +1,10 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
-10/20,home,Boston,6,1.5,W,8,9.5
-10/23,away,Miami,18,-2.5,W,17,14.5
-10/25,away,Philadelphia,8,-1.5,W,13,11.5
+10/20,home,Boston,5,1.5,W,8,9.5
+10/23,away,Miami,17,-2.5,W,17,14.5
+10/25,away,Philadelphia,9,-1.5,W,13,11.5
 10/27,away,New York,7,4.5,L,14,-9.5
-10/28,home,Charlotte,27,-7.5,W,8,0.5
-10/30,away,Brooklyn,26,-7.5,W,16,8.5
-11/02,away,Charlotte,27,-5.5,W,33,27.5
-11/04,home,Philadelphia,8,-2.5,L,6,-8.5
+10/28,home,Charlotte,26,-7.5,W,8,0.5
+10/30,away,Brooklyn,27,-7.5,W,16,8.5
+11/02,away,Charlotte,26,-5.5,W,33,27.5
+11/04,home,Philadelphia,9,-2.5,L,6,-8.5
+11/08,home,LA Lakers,8,-7.5,L,5,-12.5

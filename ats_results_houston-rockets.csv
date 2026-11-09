@@ -3,8 +3,9 @@ date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 10/23,away,San Antonio,2,4.5,W,4,8.5
 10/24,away,Atlanta,14,1.5,W,7,8.5
 10/26,home,Atlanta,14,-4.5,W,10,5.5
-10/28,away,Milwaukee,28,-8.5,W,32,23.5
+10/28,away,Milwaukee,29,-8.5,W,32,23.5
 10/30,away,Dallas,16,-5.5,L,5,-10.5
 10/31,home,Okla City,1,-2.5,W,21,18.5
-11/02,home,Boston,6,-4.5,W,16,11.5
-11/04,home,Minnesota,4,-7.5,L,10,-17.5
+11/02,home,Boston,5,-4.5,W,16,11.5
+11/04,home,Minnesota,3,-7.5,L,10,-17.5
+11/07,away,Phoenix,19,-6.5,L,3,-9.5

@@ -1,11 +1,12 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 10/21,home,Golden State,15,-6.5,W,22,15.5
-10/23,home,LA Clippers,25,-8.5,W,8,-0.5
-10/25,away,Utah,24,-6.5,W,9,2.5
+10/23,home,LA Clippers,24,-8.5,W,8,-0.5
+10/25,away,Utah,25,-6.5,W,9,2.5
 10/27,home,Portland,13,-1.5,L,7,-8.5
-10/28,away,LA Clippers,25,1.5,W,16,17.5
+10/28,away,LA Clippers,24,1.5,W,16,17.5
 10/30,away,Golden State,15,-2.5,L,17,-19.5
 11/01,home,Toronto,11,-3.5,W,6,2.5
-11/02,home,Miami,18,-2.5,W,21,18.5
+11/02,home,Miami,17,-2.5,W,21,18.5
 11/04,away,Sacramento,30,-12.5,W,13,0.5
 11/06,home,Portland,13,-3.5,W,6,2.5
+11/08,away,Detroit,6,7.5,W,5,12.5
