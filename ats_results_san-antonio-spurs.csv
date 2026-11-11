@@ -1,11 +1,12 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
-10/20,home,Okla City,1,1.5,L,12,-10.5
-10/23,home,Houston,4,-4.5,L,4,-8.5
+10/20,home,Okla City,2,1.5,L,12,-10.5
+10/23,home,Houston,3,-4.5,L,4,-8.5
 10/24,away,Dallas,16,-15.5,W,16,0.5
 10/27,home,Sacramento,30,-18.5,W,27,8.5
-10/28,away,Utah,25,-13.5,W,6,-7.5
-10/31,home,Minnesota,3,-12.5,W,10,-2.5
-11/02,home,Utah,25,-16.5,W,22,5.5
+10/28,away,Utah,23,-13.5,W,6,-7.5
+10/31,home,Minnesota,4,-12.5,W,10,-2.5
+11/02,home,Utah,23,-16.5,W,22,5.5
 11/04,home,Dallas,16,-12.5,W,1,-11.5
 11/06,away,Sacramento,30,-17.5,W,15,-2.5
-11/07,away,Portland,13,-5.5,W,22,16.5
+11/07,away,Portland,9,-5.5,W,22,16.5
+11/09,away,Phoenix,19,-9.5,W,26,16.5
