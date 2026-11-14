@@ -1,12 +1,13 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
-10/21,home,Utah,26,-1.5,W,20,18.5
-10/23,away,Golden State,12,4.5,W,3,7.5
+10/21,home,Utah,25,-1.5,W,20,18.5
+10/23,away,Golden State,13,4.5,W,3,7.5
 10/25,away,Sacramento,30,-4.5,W,11,6.5
-10/26,away,Utah,26,-1.5,W,5,3.5
+10/26,away,Utah,25,-1.5,W,5,3.5
 10/29,away,Portland,9,7.5,W,21,28.5
 10/31,home,Sacramento,30,-7.5,W,31,23.5
-11/02,home,New Orleans,27,-5.5,L,1,-6.5
-11/04,home,Indiana,21,-5.5,L,4,-9.5
+11/02,home,New Orleans,28,-5.5,L,1,-6.5
+11/04,home,Indiana,19,-5.5,L,4,-9.5
 11/06,home,Okla City,3,4.5,L,31,-26.5
 11/09,away,Toronto,14,-1.5,W,16,14.5
-11/11,home,Denver,13,3.5,L,5,-1.5
+11/11,home,Denver,11,3.5,L,5,-1.5
+11/13,away,New Orleans,28,-3.5,W,31,27.5
