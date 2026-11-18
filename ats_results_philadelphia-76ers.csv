@@ -1,16 +1,16 @@
 date,home_away,opponent,opp_rank,spread,result,margin,ats_diff
 10/20,away,New York,6,4.5,W,6,10.5
-10/22,home,Cleveland,12,-2.5,W,8,5.5
+10/22,home,Cleveland,11,-2.5,W,8,5.5
 10/24,home,Milwaukee,29,-13.5,W,11,-2.5
-10/25,home,Detroit,9,1.5,L,13,-11.5
-10/28,away,Indiana,18,-7.5,W,5,-2.5
+10/25,home,Detroit,7,1.5,L,13,-11.5
+10/28,away,Indiana,20,-7.5,W,5,-2.5
 10/30,home,New York,6,3.5,W,5,8.5
-10/31,away,Charlotte,25,-1.5,W,5,3.5
+10/31,away,Charlotte,24,-1.5,W,5,3.5
 11/02,home,Chicago,26,-10.5,W,19,8.5
-11/04,away,Detroit,9,2.5,W,6,8.5
-11/06,away,Cleveland,12,-2.5,L,24,-26.5
+11/04,away,Detroit,7,2.5,W,6,8.5
+11/06,away,Cleveland,11,-2.5,L,24,-26.5
 11/08,away,Chicago,26,-9.5,W,6,-3.5
-11/10,home,Boston,2,1.5,L,22,-20.5
-11/12,home,Toronto,14,-7.5,W,11,3.5
-11/15,home,Indiana,18,-7.5,W,7,-0.5
+11/10,home,Boston,3,1.5,L,22,-20.5
+11/12,home,Toronto,13,-7.5,W,11,3.5
+11/15,home,Indiana,20,-7.5,W,7,-0.5
 11/16,away,Brooklyn,27,-5.5,W,12,6.5
